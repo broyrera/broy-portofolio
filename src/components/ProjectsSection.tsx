@@ -1,21 +1,18 @@
 import Image from "next/image";
 
 /* ============================================================
-   PROJECT DATA
+   PROJECT DATA — Mudah ditambahkan!
    ============================================================
-   Untuk menambahkan project baru, cukup tambahkan object baru
-   ke array `projects` di bawah ini. Taruh screenshot project
-   di folder public/images/ dan referensikan path-nya.
-
-   Contoh:
+   Tambahkan object baru ke array `projects`:
    {
      title: "Nama Project",
-     description: "Deskripsi singkat project.",
-     image: "/images/project-nama-project.png",
-     tech: ["Next.js", "TypeScript", "Tailwind"],
-     link: "https://github.com/username/repo",   // opsional
-     demo: "https://demo.project.com",           // opsional
+     description: "Deskripsi singkat.",
+     image: "/images/project-screenshot.png",
+     tech: ["Next.js", "TypeScript"],
+     link: "https://github.com/...",
+     demo: "https://demo.url.com",
    }
+   Taruh screenshot di public/images/
    ============================================================ */
 
 interface Project {
@@ -31,65 +28,53 @@ const projects: Project[] = [
   {
     title: "Lawan PMO",
     description:
-      "Aplikasi mobile untuk melawan prokrastinasi dan membangun kebiasaan produktif. Dikembangkan sebagai Project Manager sekaligus Full-Stack Developer hingga rilis.",
+      "Mobile app untuk melawan prokrastinasi. Dikembangkan sebagai PM & Full-Stack Dev hingga rilis.",
     image: "/images/project-lawan-pmo.png",
-    tech: ["Flutter", "Firebase", "Dart", "Project Management"],
+    tech: ["Flutter", "Firebase", "Dart"],
     link: "#",
   },
   {
     title: "Klinik Kecantikan Broy",
     description:
-      "Sistem manajemen klinik kecantikan lengkap dengan dashboard admin, manajemen pelanggan, transaksi, dan jadwal appointment.",
+      "Sistem manajemen klinik kecantikan — dashboard admin, pelanggan, transaksi, dan jadwal.",
     image: "/images/project-klinik-kecantikan.png",
-    tech: ["Next.js", "TypeScript", "Prisma", "Tailwind CSS"],
+    tech: ["Next.js", "TypeScript", "Prisma"],
     link: "#",
   },
   {
     title: "Shorts Broy",
     description:
-      "Tools otomasi untuk pembuatan konten short-form video. Pipeline processing video dengan CLI interface yang efisien.",
+      "Tools otomasi pembuatan konten short-form video dengan pipeline CLI yang efisien.",
     image: "/images/project-shorts-broy.png",
-    tech: ["Python", "FFmpeg", "Automation", "CLI"],
+    tech: ["Python", "FFmpeg", "CLI"],
     link: "#",
   },
 ];
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+function ProjectCard({ project }: { project: Project }) {
   return (
-    <div
-      className={`group card-glow rounded-3xl overflow-hidden bg-surface border border-accent/8 ${
-        index === 0 ? "md:col-span-2 md:row-span-2" : ""
-      }`}
-    >
+    <div className="group card-lift rounded-4xl overflow-hidden bg-dark-surface/80 border border-white/5">
       {/* Image */}
-      <div
-        className={`relative overflow-hidden ${
-          index === 0 ? "h-64 sm:h-80 md:h-96" : "h-48 sm:h-56"
-        }`}
-      >
+      <div className="relative h-56 sm:h-64 md:h-72 overflow-hidden">
         <Image
           src={project.image}
           alt={project.title}
           fill
           className="object-cover transition-transform duration-700 group-hover:scale-105"
-          sizes={
-            index === 0
-              ? "(max-width: 768px) 100vw, 66vw"
-              : "(max-width: 768px) 100vw, 33vw"
-          }
+          sizes="(max-width: 768px) 100vw, 50vw"
         />
-        {/* Overlay Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-foreground/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-60" />
 
-        {/* Hover Info */}
-        <div className="absolute inset-0 flex items-end p-6 md:p-8 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
-          <div className="flex gap-3">
+        {/* Hover overlay */}
+        <div className="absolute inset-0 flex items-end p-6 opacity-0 group-hover:opacity-100 transition-all duration-500">
+          <div className="flex gap-2">
             {project.link && (
               <a
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 rounded-full bg-white/90 backdrop-blur text-foreground text-xs font-medium tracking-wide hover:bg-white transition-colors"
+                className="px-4 py-2 rounded-full bg-white text-dark text-xs font-semibold hover:bg-accent-bright transition-colors"
               >
                 GitHub ↗
               </a>
@@ -99,7 +84,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 href={project.demo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 rounded-full bg-primary text-white text-xs font-medium tracking-wide hover:bg-primary-dark transition-colors"
+                className="px-4 py-2 rounded-full bg-primary text-white text-xs font-semibold hover:bg-primary-dark transition-colors"
               >
                 Live Demo ↗
               </a>
@@ -109,28 +94,18 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       </div>
 
       {/* Content */}
-      <div className={`p-6 md:p-8 ${index === 0 ? "md:p-10" : ""}`}>
-        <h3
-          className={`font-heading font-bold text-foreground mb-3 ${
-            index === 0 ? "text-2xl md:text-3xl" : "text-xl"
-          }`}
-        >
+      <div className="p-6 sm:p-8">
+        <h3 className="font-heading text-xl sm:text-2xl font-bold italic text-text-on-dark mb-2">
           {project.title}
         </h3>
-        <p
-          className={`text-foreground-muted leading-relaxed mb-5 ${
-            index === 0 ? "text-base" : "text-sm"
-          }`}
-        >
+        <p className="text-sm text-dark-muted leading-relaxed mb-5">
           {project.description}
         </p>
-
-        {/* Tech Stack */}
         <div className="flex flex-wrap gap-2">
           {project.tech.map((t) => (
             <span
               key={t}
-              className="px-3 py-1 rounded-full text-xs font-medium bg-background border border-accent/15 text-accent-dark tracking-wide"
+              className="px-3 py-1 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-dark-muted"
             >
               {t}
             </span>
@@ -143,33 +118,61 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
 export default function ProjectsSection() {
   return (
-    <section id="projects" className="relative py-32">
-      {/* Top Divider */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[1px] bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
-
-      <div className="mx-auto max-w-6xl px-6">
-        {/* Section Title */}
-        <div className="text-center mb-20">
-          <span className="font-accent text-accent text-sm tracking-[0.3em] uppercase block mb-4">
-            Karya
-          </span>
-          <h2 className="font-heading text-4xl sm:text-5xl font-bold text-foreground mb-6">
-            Project Pilihan
-          </h2>
-          <p className="max-w-lg mx-auto text-foreground-muted">
-            Beberapa project yang telah saya kerjakan, dari mobile app hingga
-            web platform dan automation tools.
-          </p>
-          <div className="elegant-divider mx-auto max-w-xs" />
-        </div>
-
-        {/* Project Grid — Featured (first) is large, rest are smaller */}
-        <div className="grid md:grid-cols-2 gap-8">
-          {projects.map((project, i) => (
-            <ProjectCard key={project.title} project={project} index={i} />
+    <>
+      {/* === Scrolling Text Divider === */}
+      <div className="py-6 overflow-hidden bg-dark border-y border-white/5">
+        <div className="flex whitespace-nowrap animate-marquee">
+          {Array.from({ length: 10 }).map((_, i) => (
+            <span
+              key={i}
+              className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tighter lowercase text-white/[0.04] mx-4"
+            >
+              portfolio&nbsp;·&nbsp;
+            </span>
           ))}
         </div>
       </div>
-    </section>
+
+      {/* Dark Portfolio Section */}
+      <section id="projects" className="bg-dark py-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-6 sm:px-10">
+          {/* Section Header */}
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-16">
+            <div>
+              <p className="text-xs font-semibold tracking-[0.3em] uppercase text-dark-muted mb-4">
+                — Portfolio
+              </p>
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight lowercase text-text-on-dark leading-[0.95]">
+                selected
+                <br />
+                <span className="text-primary-light">works</span>
+              </h2>
+            </div>
+            <p className="text-sm text-dark-muted max-w-sm leading-relaxed">
+              Beberapa project digital yang telah saya kerjakan — dari mobile
+              app hingga web platform dan automation tools.
+            </p>
+          </div>
+
+          {/* Project Grid */}
+          <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
+            {projects.map((project) => (
+              <ProjectCard key={project.title} project={project} />
+            ))}
+
+            {/* "More Coming" placeholder card */}
+            <div className="rounded-4xl border-2 border-dashed border-white/10 flex flex-col items-center justify-center min-h-[300px] p-8 text-center">
+              <span className="text-4xl mb-4">🚀</span>
+              <p className="text-lg font-semibold text-dark-muted">
+                More coming soon
+              </p>
+              <p className="text-sm text-dark-muted/60 mt-1">
+                Exciting projects in the pipeline
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

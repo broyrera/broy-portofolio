@@ -11,9 +11,7 @@ export default function GuestbookSection() {
   const [connected, setConnected] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Fetch initial entries + subscribe to realtime
   useEffect(() => {
-    // Fetch existing entries
     const fetchEntries = async () => {
       const { data, error } = await supabase
         .from("guestbook")
@@ -29,7 +27,6 @@ export default function GuestbookSection() {
 
     fetchEntries();
 
-    // Subscribe to realtime inserts
     const channel = supabase
       .channel("guestbook-realtime")
       .on(
@@ -48,7 +45,6 @@ export default function GuestbookSection() {
     };
   }, []);
 
-  // Auto-scroll to bottom when new entry appears
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
@@ -82,80 +78,79 @@ export default function GuestbookSection() {
   };
 
   return (
-    <section id="guestbook" className="relative py-32">
-      {/* Top Divider */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[1px] bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
-
-      <div className="mx-auto max-w-3xl px-6">
-        {/* Section Title */}
-        <div className="text-center mb-16">
-          <span className="font-accent text-accent text-sm tracking-[0.3em] uppercase block mb-4">
-            Buku Tamu
-          </span>
-          <h2 className="font-heading text-4xl sm:text-5xl font-bold text-foreground mb-4">
-            Live Guestbook
+    <section id="guestbook" className="py-24 sm:py-32">
+      <div className="mx-auto max-w-3xl px-6 sm:px-10">
+        {/* Section Header */}
+        <div className="mb-14">
+          <p className="text-xs font-semibold tracking-[0.3em] uppercase text-text-muted mb-4">
+            — Guestbook
+          </p>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight lowercase leading-[0.95]">
+            leave a<br />
+            <span className="text-primary">message</span>
           </h2>
-          <p className="text-foreground-muted max-w-md mx-auto">
+          <p className="text-sm text-text-muted mt-6 max-w-md leading-relaxed">
             Tinggalkan pesan atau sapa saya. Pesan pengunjung lain akan muncul
             secara realtime.
           </p>
-          <div className="elegant-divider mx-auto max-w-xs" />
         </div>
 
-        {/* Guestbook Card — styled like a VIP Letter/Book */}
-        <div className="relative rounded-3xl overflow-hidden bg-surface border border-accent/15 shadow-xl shadow-primary/5">
-          {/* Header Bar */}
-          <div className="px-6 sm:px-8 py-4 bg-gradient-to-r from-primary/5 via-accent/5 to-primary/5 border-b border-accent/10 flex items-center justify-between">
+        {/* Guestbook Container */}
+        <div className="rounded-4xl overflow-hidden bg-surface border border-text/5">
+          {/* Header */}
+          <div className="px-6 sm:px-8 py-4 flex items-center justify-between border-b border-text/5">
             <div className="flex items-center gap-3">
-              <span className="font-heading text-lg font-semibold text-foreground">
-                ✦ Buku Tamu VIP
+              <span className="text-sm font-semibold text-text">
+                buku tamu
               </span>
             </div>
             <div className="flex items-center gap-2">
               <span
-                className={`inline-block w-2 h-2 rounded-full ${
-                  connected ? "bg-green-500 animate-pulse" : "bg-foreground-light"
+                className={`w-2 h-2 rounded-full ${
+                  connected ? "bg-green-500 animate-pulse" : "bg-text-light"
                 }`}
               />
-              <span className="text-xs text-foreground-muted">
-                {connected ? "Live" : "Connecting..."}
+              <span className="text-xs text-text-muted">
+                {connected ? "live" : "connecting..."}
               </span>
             </div>
           </div>
 
-          {/* Messages Area */}
+          {/* Messages */}
           <div
             ref={scrollRef}
-            className="h-80 sm:h-96 overflow-y-auto p-6 sm:p-8 space-y-5"
+            className="h-72 sm:h-80 overflow-y-auto p-6 sm:p-8 space-y-0 divide-y divide-text/5"
           >
             {entries.length === 0 && (
               <div className="h-full flex flex-col items-center justify-center text-center">
-                <span className="text-4xl mb-4">📜</span>
-                <p className="text-foreground-muted font-accent text-lg">
+                <span className="text-3xl mb-3">📝</span>
+                <p className="text-text-muted text-sm">
                   Belum ada pesan. Jadilah yang pertama!
                 </p>
               </div>
             )}
 
-            {entries.map((entry) => (
+            {entries.map((entry, i) => (
               <div
                 key={entry.id}
-                className="group relative pl-6 border-l-2 border-accent/20 hover:border-accent/50 transition-colors"
+                className="group py-4 first:pt-0 flex items-start gap-4"
               >
-                {/* Dot on timeline */}
-                <span className="absolute left-[-5px] top-1.5 w-2 h-2 rounded-full bg-accent/40 group-hover:bg-accent transition-colors" />
-
-                <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3 mb-1">
-                  <span className="font-heading font-semibold text-foreground text-sm">
-                    {entry.name}
-                  </span>
-                  <span className="text-xs text-foreground-light font-accent">
-                    {formatTime(entry.created_at)}
-                  </span>
+                <span className="text-[10px] font-semibold text-text-light mt-1">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-baseline gap-3 mb-1">
+                    <span className="font-semibold text-sm text-text">
+                      {entry.name}
+                    </span>
+                    <span className="text-[10px] text-text-light">
+                      {formatTime(entry.created_at)}
+                    </span>
+                  </div>
+                  <p className="text-sm text-text-muted leading-relaxed">
+                    {entry.message}
+                  </p>
                 </div>
-                <p className="text-sm text-foreground-muted leading-relaxed">
-                  {entry.message}
-                </p>
               </div>
             ))}
           </div>
@@ -163,16 +158,16 @@ export default function GuestbookSection() {
           {/* Input Form */}
           <form
             onSubmit={handleSubmit}
-            className="p-6 sm:p-8 bg-gradient-to-t from-surface-dark/50 to-transparent border-t border-accent/10"
+            className="p-6 sm:p-8 border-t border-text/5"
           >
             <div className="flex flex-col sm:flex-row gap-3 mb-3">
               <input
                 type="text"
-                placeholder="Nama Anda"
+                placeholder="Nama"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 maxLength={100}
-                className="flex-shrink-0 sm:w-40 px-4 py-3 rounded-xl bg-background border border-accent/15 text-foreground text-sm placeholder:text-foreground-light/50 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-all"
+                className="flex-shrink-0 sm:w-36 px-4 py-3 rounded-2xl bg-bg border border-text/8 text-text text-sm placeholder:text-text-light focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-all"
               />
               <input
                 type="text"
@@ -180,43 +175,18 @@ export default function GuestbookSection() {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 maxLength={500}
-                className="flex-1 px-4 py-3 rounded-xl bg-background border border-accent/15 text-foreground text-sm placeholder:text-foreground-light/50 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-all"
+                className="flex-1 px-4 py-3 rounded-2xl bg-bg border border-text/8 text-text text-sm placeholder:text-text-light focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-all"
               />
               <button
                 type="submit"
                 disabled={sending || !name.trim() || !message.trim()}
-                className="px-6 py-3 rounded-xl bg-primary text-white text-sm font-medium tracking-wide transition-all duration-300 hover:bg-primary-dark hover:shadow-lg hover:shadow-primary/20 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:shadow-none"
+                className="px-6 py-3 rounded-2xl bg-text text-bg text-sm font-semibold transition-all duration-300 hover:bg-primary disabled:opacity-30 disabled:cursor-not-allowed"
               >
-                {sending ? (
-                  <span className="inline-flex items-center gap-2">
-                    <svg
-                      className="animate-spin h-4 w-4"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                        fill="none"
-                      />
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-                      />
-                    </svg>
-                    Kirim
-                  </span>
-                ) : (
-                  "Kirim ✦"
-                )}
+                {sending ? "..." : "kirim →"}
               </button>
             </div>
-            <p className="text-xs text-foreground-light/40 text-center">
-              Pesan bersifat publik dan ditampilkan secara realtime
+            <p className="text-[10px] text-text-light text-center mt-2">
+              pesan bersifat publik · ditampilkan realtime
             </p>
           </form>
         </div>

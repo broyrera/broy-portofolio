@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ============================================
-   BROY PORTFOLIO — Design System (Tailwind v4)
+   BROY PORTFOLIO — Videaste-Inspired Design
    ============================================ */
 
 @theme inline {
@@ -10,20 +10,26 @@
   --color-primary-dark: #751833;
   --color-primary-light: #ab395b;
 
-  /* === Accent (Gold/Champagne) === */
+  /* === Accent (Mustard Yellow — inspired by Videaste) === */
   --color-accent: #c9a96e;
-  --color-accent-light: #d4bc8e;
-  --color-accent-dark: #b89650;
+  --color-accent-bright: #f0c75e;
+  --color-accent-bg: #f5d87a;
 
   /* === Background & Surface === */
-  --color-background: #faf7f5;
-  --color-surface: #f5efe9;
-  --color-surface-dark: #ebe3d9;
+  --color-bg: #faf7f5;
+  --color-surface: #f0ebe4;
+  --color-surface-dark: #e5ddd3;
+
+  /* === Dark section === */
+  --color-dark: #0a0a0a;
+  --color-dark-surface: #1a1a1a;
+  --color-dark-muted: #888888;
 
   /* === Text === */
-  --color-foreground: #2d2a26;
-  --color-foreground-muted: #6b6560;
-  --color-foreground-light: #9a9490;
+  --color-text: #111111;
+  --color-text-muted: #666666;
+  --color-text-light: #999999;
+  --color-text-on-dark: #f5f5f5;
 
   /* === Fonts === */
   --font-inter: var(--font-inter-var);
@@ -37,14 +43,14 @@ html {
 }
 
 body {
-  background-color: var(--color-background);
-  color: var(--color-foreground);
+  background-color: var(--color-bg);
+  color: var(--color-text);
   font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* === Typography Utilities === */
+/* === Font Classes === */
 .font-heading {
   font-family: var(--font-playfair), Georgia, serif;
 }
@@ -53,78 +59,45 @@ body {
   font-family: var(--font-cormorant), Georgia, serif;
 }
 
-/* === Selection Color === */
+/* === Selection === */
 ::selection {
-  background-color: #942345;
-  color: #faf7f5;
+  background-color: var(--color-accent-bright);
+  color: #111;
 }
 
-/* === Scrollbar Styling === */
+/* === Scrollbar === */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-surface);
+  background: var(--color-bg);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-accent);
-  border-radius: 4px;
+  background: var(--color-text-light);
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-accent-dark);
+  background: var(--color-text-muted);
 }
 
-/* === Decorative Ornament === */
-.ornament::after {
-  content: "◆";
-  display: block;
-  text-align: center;
-  color: var(--color-accent);
-  font-size: 0.75rem;
-  letter-spacing: 1em;
-  margin-top: 1rem;
+/* === Marquee / Scrolling Text === */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
-/* === Elegant Divider === */
-.elegant-divider {
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    var(--color-accent),
-    transparent
-  );
-  border: none;
-  margin: 2rem 0;
+.animate-marquee {
+  animation: marquee 20s linear infinite;
 }
 
-/* === Glow Effect for Cards === */
-.card-glow {
-  transition: box-shadow 0.4s ease, transform 0.4s ease;
-}
-
-.card-glow:hover {
-  box-shadow: 0 8px 40px -12px rgba(148, 35, 69, 0.15),
-    0 4px 20px -8px rgba(201, 169, 110, 0.1);
-  transform: translateY(-4px);
-}
-
-/* === Animated Gradient Text === */
-.gradient-text {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* === Fade In Animation === */
+/* === Fade In Up === */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px);
   }
   to {
     opacity: 1;
@@ -136,18 +109,31 @@ body {
   animation: fadeInUp 0.8s ease-out forwards;
 }
 
-.animate-delay-100 { animation-delay: 0.1s; }
-.animate-delay-200 { animation-delay: 0.2s; }
-.animate-delay-300 { animation-delay: 0.3s; }
-.animate-delay-400 { animation-delay: 0.4s; }
-.animate-delay-500 { animation-delay: 0.5s; }
+.anim-delay-1 { animation-delay: 0.1s; }
+.anim-delay-2 { animation-delay: 0.2s; }
+.anim-delay-3 { animation-delay: 0.3s; }
+.anim-delay-4 { animation-delay: 0.4s; }
+.anim-delay-5 { animation-delay: 0.5s; }
 
-/* === Subtle Float Animation === */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+/* === Card Hover === */
+.card-lift {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.animate-float {
-  animation: float 6s ease-in-out infinite;
+.card-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.15);
+}
+
+/* === Super Rounded === */
+.rounded-4xl { border-radius: 2rem; }
+.rounded-5xl { border-radius: 2.5rem; }
+
+/* === Gradient Text === */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent-bright));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }

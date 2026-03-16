@@ -1,204 +1,162 @@
 const skills = [
-  {
-    category: "Mobile",
-    items: ["Flutter", "Kotlin", "React Native"],
-    icon: "📱",
-  },
-  {
-    category: "Backend",
-    items: ["TypeScript", "NestJS", "Express", "Go"],
-    icon: "⚙️",
-  },
-  {
-    category: "Tools & Infra",
-    items: ["Git", "Docker", "Firebase", "Supabase"],
-    icon: "🛠️",
-  },
-  {
-    category: "Soft Skills",
-    items: ["Leadership", "Project Management", "Team Collaboration"],
-    icon: "🎯",
-  },
+  { name: "TypeScript", icon: "⚡" },
+  { name: "Go", icon: "🔷" },
+  { name: "Flutter", icon: "📱" },
+  { name: "Kotlin", icon: "🟣" },
+  { name: "NestJS", icon: "🔺" },
+  { name: "Express", icon: "⬡" },
+  { name: "Docker", icon: "🐳" },
+  { name: "Firebase", icon: "🔥" },
+  { name: "Git", icon: "📂" },
+  { name: "Supabase", icon: "⚡" },
 ];
 
 const experiences = [
   {
+    num: "01",
     role: "Mobile Developer",
     company: "PT Neural Technologies Indonesia",
     period: "Jun 2025 – Oct 2025",
-    desc: "Mengembangkan aplikasi internal perusahaan.",
   },
-];
-
-const achievements = [
-  "🥈 Peraih Penghargaan Setara Perak — Poster PKM-KI 1 PIMNAS 2025",
-  "🥉 Peraih Penghargaan Setara Perunggu — Presentasi PKM-KI 1 PIMNAS 2025",
-  "🏆 Finalis Musabaqah Desain Aplikasi Komputer Al-Qur'an 2023",
+  {
+    num: "02",
+    role: "Ketua Unit Kewirausahaan",
+    company: "HIMAKOM Polban",
+    period: "Feb 2024 – Jan 2025",
+  },
+  {
+    num: "03",
+    role: "Project Manager & Full-Stack Dev",
+    company: "Lawan PMO (Independent)",
+    period: "2024",
+  },
 ];
 
 export default function AboutSection() {
   return (
-    <section id="about" className="relative py-32 overflow-hidden">
-      {/* Decorative BG */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[1px] bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
-      </div>
-
-      <div className="relative z-10 mx-auto max-w-6xl px-6">
-        {/* Section Title */}
-        <div className="text-center mb-20">
-          <span className="font-accent text-accent text-sm tracking-[0.3em] uppercase block mb-4">
-            Tentang
-          </span>
-          <h2 className="font-heading text-4xl sm:text-5xl font-bold text-foreground mb-6">
-            Mengenal Saya
-          </h2>
-          <div className="elegant-divider mx-auto max-w-xs" />
-        </div>
-
-        {/* Bio + Experience Grid */}
-        <div className="grid lg:grid-cols-5 gap-12 mb-20">
-          {/* Bio */}
-          <div className="lg:col-span-3 space-y-6">
-            <p className="text-lg leading-relaxed text-foreground-muted">
-              Saya{" "}
-              <span className="font-heading font-semibold text-foreground">
-                Roy Aziz Barera
-              </span>
-              , Informatics Engineer dari{" "}
-              <span className="text-primary font-medium">
-                Politeknik Negeri Bandung
-              </span>
-              . Berfokus pada backend dan mobile development menggunakan
-              TypeScript, Go, Flutter, dan Kotlin.
-            </p>
-            <p className="text-base leading-relaxed text-foreground-muted/80">
-              Berpengalaman memimpin pengembangan aplikasi{" "}
-              <span className="font-medium text-foreground">Lawan PMO</span>{" "}
-              sebagai Project Manager sekaligus Full-Stack Developer hingga
-              rilis. Terbiasa menulis clean, modular code dan bekerja secara
-              sistematis dalam tim product-oriented.
-            </p>
-            <p className="text-base leading-relaxed text-foreground-muted/80">
-              Saat ini mengembangkan skill Backend dan Mobile Engineering serta
-              menerapkan pendekatan{" "}
-              <span className="italic text-accent font-medium">
-                semi vibe coding
-              </span>{" "}
-              untuk mempercepat workflow tanpa mengorbankan kualitas arsitektur.
-            </p>
-
-            {/* Experience */}
-            <div className="mt-8 pt-8 border-t border-accent/10">
-              <h3 className="font-heading text-lg font-semibold text-foreground mb-4">
-                Pengalaman
-              </h3>
-              {experiences.map((exp, i) => (
-                <div
-                  key={i}
-                  className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4"
-                >
-                  <span className="text-sm text-accent font-medium whitespace-nowrap">
-                    {exp.period}
-                  </span>
-                  <div>
-                    <p className="font-medium text-foreground">{exp.role}</p>
-                    <p className="text-sm text-foreground-muted">
-                      {exp.company} — {exp.desc}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Achievements Card */}
-          <div className="lg:col-span-2">
-            <div className="rounded-2xl bg-surface border border-accent/10 p-8 space-y-6">
-              <h3 className="font-heading text-lg font-semibold text-foreground flex items-center gap-2">
-                <span className="text-accent">✦</span> Penghargaan
-              </h3>
-              <ul className="space-y-4">
-                {achievements.map((ach, i) => (
-                  <li
-                    key={i}
-                    className="text-sm text-foreground-muted leading-relaxed pl-1"
-                  >
-                    {ach}
-                  </li>
-                ))}
-              </ul>
-
-              {/* Education */}
-              <div className="pt-6 border-t border-accent/10">
-                <h3 className="font-heading text-lg font-semibold text-foreground mb-3 flex items-center gap-2">
-                  <span className="text-accent">✦</span> Pendidikan
-                </h3>
-                <div className="space-y-3">
-                  <div>
-                    <p className="font-medium text-foreground text-sm">
-                      Politeknik Negeri Bandung
-                    </p>
-                    <p className="text-xs text-foreground-muted">
-                      Informatics Engineering • 2022 – 2026
-                    </p>
-                  </div>
-                  <div>
-                    <p className="font-medium text-foreground text-sm">
-                      SMAN 1 Cicalengka
-                    </p>
-                    <p className="text-xs text-foreground-muted">
-                      Science Education • 2019 – 2022
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Organisasi */}
-              <div className="pt-6 border-t border-accent/10">
-                <h3 className="font-heading text-lg font-semibold text-foreground mb-3 flex items-center gap-2">
-                  <span className="text-accent">✦</span> Organisasi
-                </h3>
-                <div className="space-y-2">
-                  <div>
-                    <p className="font-medium text-foreground text-sm">
-                      Ketua Unit Kewirausahaan
-                    </p>
-                    <p className="text-xs text-foreground-muted">
-                      HIMAKOM Polban • 2024 – 2025
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Skills Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {skills.map((skill) => (
-            <div
-              key={skill.category}
-              className="group card-glow rounded-2xl bg-surface/60 border border-accent/8 p-6 text-center"
+    <>
+      {/* === Scrolling Text Divider === */}
+      <div className="py-6 overflow-hidden border-y border-text/8">
+        <div className="flex whitespace-nowrap animate-marquee">
+          {Array.from({ length: 10 }).map((_, i) => (
+            <span
+              key={i}
+              className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tighter lowercase text-text/[0.04] mx-4"
             >
-              <div className="text-3xl mb-4">{skill.icon}</div>
-              <h3 className="font-heading text-base font-semibold text-foreground mb-4">
-                {skill.category}
-              </h3>
-              <div className="flex flex-wrap justify-center gap-2">
-                {skill.items.map((item) => (
-                  <span
-                    key={item}
-                    className="px-3 py-1 rounded-full text-xs font-medium bg-background border border-accent/15 text-foreground-muted transition-colors group-hover:border-primary/20 group-hover:text-primary"
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
+              about&nbsp;·&nbsp;
+            </span>
           ))}
         </div>
       </div>
-    </section>
+
+      <section id="about" className="py-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-6 sm:px-10">
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-20">
+            {/* Left — Bio */}
+            <div className="space-y-8">
+              <div>
+                <p className="text-xs font-semibold tracking-[0.3em] uppercase text-text-muted mb-6">
+                  — About
+                </p>
+                <h2 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[0.95] lowercase">
+                  building
+                  <br />
+                  <span className="text-primary">digital</span>
+                  <br />
+                  solutions
+                </h2>
+              </div>
+
+              <p className="text-base sm:text-lg text-text-muted leading-relaxed max-w-lg">
+                Saya{" "}
+                <span className="font-semibold text-text">
+                  Roy Aziz Barera
+                </span>
+                , Informatics Engineer dari Politeknik Negeri Bandung. Berfokus
+                pada backend dan mobile development. Terbiasa memimpin tim,
+                menulis clean code, dan bekerja secara product-oriented.
+              </p>
+
+              <p className="text-sm text-text-muted/70 leading-relaxed max-w-lg">
+                Berpengalaman memimpin pengembangan aplikasi Lawan PMO sebagai
+                Project Manager sekaligus Full-Stack Developer hingga rilis.
+                Peraih penghargaan PIMNAS 2025 — Silver (Poster) & Bronze
+                (Presentasi) PKM-KI 1.
+              </p>
+
+              {/* CTA */}
+              <a
+                href="mailto:royazizbarera@gmail.com"
+                className="inline-flex items-center gap-3 px-7 py-3.5 rounded-full bg-text text-bg text-sm font-semibold hover:bg-primary transition-colors duration-300"
+              >
+                Get in touch
+                <svg
+                  className="w-4 h-4"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M7 17L17 7M17 7H7M17 7V17" />
+                </svg>
+              </a>
+            </div>
+
+            {/* Right — Skills + Experience */}
+            <div className="space-y-12">
+              {/* Skills */}
+              <div>
+                <p className="text-xs font-semibold tracking-[0.3em] uppercase text-text-muted mb-6">
+                  — Tech Stack
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  {skills.map((s) => (
+                    <span
+                      key={s.name}
+                      className="px-4 py-2.5 rounded-full bg-surface border border-text/5 text-sm font-medium text-text flex items-center gap-2 hover:bg-accent-bright/20 hover:border-accent/30 transition-all duration-300 cursor-default"
+                    >
+                      <span className="text-base">{s.icon}</span>
+                      {s.name}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Experience List — numbered like exhibitions */}
+              <div>
+                <p className="text-xs font-semibold tracking-[0.3em] uppercase text-text-muted mb-6">
+                  — Experience
+                </p>
+                <div className="space-y-0 divide-y divide-text/8">
+                  {experiences.map((exp) => (
+                    <div
+                      key={exp.num}
+                      className="group py-5 flex items-start gap-4 sm:gap-6 cursor-default hover:bg-surface/50 transition-colors -mx-4 px-4 rounded-2xl"
+                    >
+                      <span className="text-xs font-semibold text-text-light mt-1.5">
+                        {exp.num}
+                      </span>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-heading text-lg sm:text-xl font-bold italic text-text group-hover:text-primary transition-colors">
+                          {exp.role}
+                        </p>
+                        <p className="text-sm text-text-muted mt-0.5">
+                          {exp.company}
+                        </p>
+                      </div>
+                      <span className="text-xs text-text-light whitespace-nowrap mt-1.5 hidden sm:block">
+                        {exp.period}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
