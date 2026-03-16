@@ -1,129 +1,129 @@
+"use client";
+
 import Image from "next/image";
+import { useEffect, useRef } from "react";
+import Magnetic from "./Magnetic";
 
 export default function HeroSection() {
+  const heroRef = useRef<HTMLElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
+
+  // Mouse-tracking glow
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!glowRef.current || !heroRef.current) return;
+      const rect = heroRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      glowRef.current.style.background = `radial-gradient(600px circle at ${x}px ${y}px, rgba(148,35,69,0.08), transparent 60%)`;
+    };
+    const el = heroRef.current;
+    if (el) el.addEventListener("mousemove", handleMouseMove);
+    return () => {
+      if (el) el.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
   return (
     <section
+      ref={heroRef}
       id="hero"
-      className="relative min-h-screen flex items-center pt-24 pb-8 overflow-hidden"
+      className="relative grain min-h-screen flex flex-col items-center justify-center overflow-hidden"
     >
-      <div className="mx-auto max-w-7xl px-6 sm:px-10 w-full">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-4 items-center">
-          {/* Left — Text */}
-          <div className="space-y-8">
-            {/* Big Heading — lowercase, heavy, like Videaste */}
-            <div className="animate-fade-in-up opacity-0">
-              <h1 className="text-[3.5rem] sm:text-[5rem] md:text-[6rem] lg:text-[7rem] font-black leading-[0.9] tracking-tighter lowercase">
-                <span className="text-text">code</span>
-                <br />
-                <span className="text-primary">craft</span>
-              </h1>
-            </div>
+      {/* Warm gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#fdf6ee] via-[#fce8d0] to-bg z-0" />
 
-            {/* Description */}
-            <div className="animate-fade-in-up opacity-0 anim-delay-2 max-w-md">
-              <p className="text-base sm:text-lg text-text-muted leading-relaxed">
-                Backend & Mobile Developer membangun solusi digital yang clean,
-                modular, dan product-oriented.
-              </p>
-            </div>
+      {/* Animated color blobs */}
+      <div className="absolute top-[-20%] right-[-10%] w-[500px] h-[500px] rounded-full bg-gradient-to-br from-primary/10 to-accent-bright/15 blur-3xl blob-spin z-0" />
+      <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] rounded-full bg-gradient-to-tr from-accent/10 to-primary-light/10 blur-3xl blob-spin-reverse z-0" />
 
-            {/* Social Icons — small circles */}
-            <div className="animate-fade-in-up opacity-0 anim-delay-3 flex items-center gap-3">
-              {[
-                { label: "gh", href: "https://github.com/broyrera" },
-                { label: "li", href: "https://linkedin.com/in/royazizbarera" },
-                { label: "ig", href: "#" },
-                { label: "wa", href: "https://wa.me/6285871761909" },
-              ].map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full border border-text/15 flex items-center justify-center text-xs font-semibold text-text-muted hover:bg-text hover:text-bg transition-all duration-300"
-                >
-                  {s.label}
-                </a>
-              ))}
-            </div>
+      {/* Mouse-tracking glow */}
+      <div ref={glowRef} className="absolute inset-0 z-0 pointer-events-none" />
 
-            {/* Stats */}
-            <div className="animate-fade-in-up opacity-0 anim-delay-4 flex gap-10 pt-4">
-              <div>
-                <p className="text-3xl sm:text-4xl font-black tracking-tight text-text">
-                  <span className="text-primary">+</span>3
-                </p>
-                <p className="text-xs text-text-muted mt-1 max-w-[140px] leading-snug">
-                  Projects shipped from concept to launch
-                </p>
-              </div>
-              <div>
-                <p className="text-3xl sm:text-4xl font-black tracking-tight text-text">
-                  <span className="text-primary">+</span>3
-                </p>
-                <p className="text-xs text-text-muted mt-1 max-w-[140px] leading-snug">
-                  National-level awards & achievements
-                </p>
-              </div>
-            </div>
+      {/* Content */}
+      <div className="relative z-10 w-full flex flex-col items-center pt-28 pb-0">
+        {/* Script greeting */}
+        <h2
+          className="font-accent italic text-5xl sm:text-7xl md:text-8xl text-text/70 tracking-wide mb-[-40px] sm:mb-[-60px] md:mb-[-70px] z-0 select-none opacity-0 animate-entrance stagger-1"
+        >
+          Hey, there
+        </h2>
+
+        {/* Personal Photo with glow */}
+        <Magnetic strength={0.15}>
+          <div className="relative z-10 w-52 h-52 sm:w-64 sm:h-64 md:w-80 md:h-80 rounded-full overflow-hidden glow-pulse border-4 border-white/60 opacity-0 animate-entrance stagger-2">
+            <Image
+              src="/images/roy-photo.png"
+              alt="Roy Aziz Barera"
+              fill
+              className="object-cover object-top"
+              sizes="320px"
+              priority
+            />
           </div>
+        </Magnetic>
 
-          {/* Right — Feature Image Container */}
-          <div className="animate-fade-in-up opacity-0 anim-delay-2 relative flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-md lg:max-w-lg">
-              {/* Main Image Container — Yellow rounded */}
-              <div className="relative rounded-5xl overflow-hidden bg-accent-bright aspect-[3/4] shadow-2xl">
-                <Image
-                  src="/images/project-lawan-pmo.png"
-                  alt="Roy Aziz Barera"
-                  fill
-                  className="object-cover mix-blend-multiply"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  priority
-                />
-                {/* Handwritten overlay */}
-                <div className="absolute top-6 right-6 font-heading italic text-white/60 text-2xl rotate-[-8deg]">
-                  Roy Barera
-                </div>
-              </div>
+        {/* Availability Badge */}
+        <div className="mt-8 opacity-0 animate-entrance stagger-3">
+          <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/70 backdrop-blur-md border border-text/5 shadow-sm hover:shadow-md hover:scale-105 transition-all duration-300 cursor-default">
+            <span className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse" />
+            <span className="text-xs font-medium text-text">
+              Available for new opportunities
+            </span>
+          </div>
+        </div>
 
-              {/* Floating CTA Button */}
+        {/* Description */}
+        <p className="mt-6 text-sm text-text-muted max-w-xs text-center leading-relaxed opacity-0 animate-entrance stagger-4">
+          Specialized in Backend Development, Mobile Apps, and Clean Architecture.
+        </p>
+
+        {/* Social row */}
+        <div className="mt-6 flex items-center gap-3 opacity-0 animate-entrance stagger-5">
+          {[
+            { label: "gh", href: "https://github.com/broyrera" },
+            { label: "li", href: "https://linkedin.com/in/royazizbarera" },
+            { label: "wa", href: "https://wa.me/6285871761909" },
+          ].map((s) => (
+            <Magnetic key={s.label} strength={0.4}>
               <a
-                href="#projects"
-                className="absolute -bottom-4 -right-4 sm:bottom-6 sm:right-[-20px] w-16 h-16 rounded-full bg-text text-bg flex items-center justify-center shadow-xl hover:scale-110 transition-transform duration-300"
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full border border-text/15 flex items-center justify-center text-xs font-semibold text-text-muted hover:bg-text hover:text-bg hover:border-text hover:scale-110 transition-all duration-300"
               >
-                <svg
-                  className="w-5 h-5"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M7 17L17 7M17 7H7M17 7V17" />
-                </svg>
+                {s.label}
               </a>
+            </Magnetic>
+          ))}
+        </div>
+      </div>
 
-              {/* Small floating image — top right */}
-              <div className="hidden lg:block absolute -top-8 -right-12 w-20 h-20 rounded-2xl overflow-hidden shadow-lg border-4 border-bg rotate-6">
-                <Image
-                  src="/images/project-klinik-kecantikan.png"
-                  alt="Project preview"
-                  fill
-                  className="object-cover"
-                  sizes="80px"
-                />
-              </div>
+      {/* Bottom: massive name + role */}
+      <div className="relative z-10 w-full mt-auto pb-8 sm:pb-12 opacity-0 animate-entrance stagger-6">
+        <div className="mx-auto max-w-7xl px-6 sm:px-10">
+          <div className="flex flex-col sm:flex-row items-end justify-between gap-4">
+            <h1 className="text-[2.5rem] sm:text-[4.5rem] md:text-[6.5rem] lg:text-[8rem] font-black leading-[0.85] tracking-[-0.04em] uppercase text-text">
+              I AM
+              <br />
+              <span className="text-shimmer">ROY</span> BARERA
+            </h1>
+
+            <div className="sm:text-right pb-2">
+              <p className="text-lg sm:text-xl md:text-2xl font-black uppercase tracking-tight text-text leading-tight">
+                Backend &<br />
+                Mobile<br />
+                Developer
+              </p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-text-light">
-        <div className="w-6 h-9 rounded-full border-2 border-text/15 flex items-start justify-center pt-1.5">
-          <div className="w-1 h-2 rounded-full bg-text/30 animate-bounce" />
+      {/* Scroll indicator */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10">
+        <div className="w-6 h-9 rounded-full border-2 border-text/20 flex items-start justify-center pt-1.5">
+          <div className="w-1 h-2.5 rounded-full bg-text/40 animate-bounce" />
         </div>
       </div>
     </section>
