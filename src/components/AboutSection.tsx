@@ -1,14 +1,14 @@
 const skills = [
-  { name: "TypeScript", icon: "⚡" },
-  { name: "Go", icon: "🔷" },
-  { name: "Flutter", icon: "📱" },
-  { name: "Kotlin", icon: "🟣" },
-  { name: "NestJS", icon: "🔺" },
-  { name: "Express", icon: "⬡" },
-  { name: "Docker", icon: "🐳" },
-  { name: "Firebase", icon: "🔥" },
-  { name: "Git", icon: "📂" },
-  { name: "Supabase", icon: "⚡" },
+  { name: "TypeScript", tag: "ts" },
+  { name: "Go", tag: "go" },
+  { name: "Flutter", tag: "fl" },
+  { name: "Kotlin", tag: "kt" },
+  { name: "NestJS", tag: "nj" },
+  { name: "Express", tag: "ex" },
+  { name: "Docker", tag: "dk" },
+  { name: "Firebase", tag: "fb" },
+  { name: "Git", tag: "gt" },
+  { name: "Supabase", tag: "sb" },
 ];
 
 const experiences = [
@@ -35,7 +35,7 @@ const experiences = [
 export default function AboutSection() {
   return (
     <>
-      {/* === Scrolling Text Divider === */}
+      {/* Scrolling Text Divider */}
       <div className="py-6 overflow-hidden border-y border-text/8">
         <div className="flex whitespace-nowrap animate-marquee">
           {Array.from({ length: 10 }).map((_, i) => (
@@ -117,14 +117,14 @@ export default function AboutSection() {
                       key={s.name}
                       className="px-4 py-2.5 rounded-full bg-surface border border-text/5 text-sm font-medium text-text flex items-center gap-2 hover:bg-accent-bright/20 hover:border-accent/30 transition-all duration-300 cursor-default"
                     >
-                      <span className="text-base">{s.icon}</span>
+                      <span className="text-[10px] font-bold text-text-light uppercase tracking-wider">{s.tag}</span>
                       {s.name}
                     </span>
                   ))}
                 </div>
               </div>
 
-              {/* Experience List — numbered like exhibitions */}
+              {/* Experience List */}
               <div>
                 <p className="text-xs font-semibold tracking-[0.3em] uppercase text-text-muted mb-6">
                   — Experience

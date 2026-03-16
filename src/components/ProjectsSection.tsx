@@ -1,59 +1,17 @@
 import Image from "next/image";
+import Link from "next/link";
+import { projects } from "@/lib/projects";
 
-/* ============================================================
-   PROJECT DATA — Mudah ditambahkan!
-   ============================================================
-   Tambahkan object baru ke array `projects`:
-   {
-     title: "Nama Project",
-     description: "Deskripsi singkat.",
-     image: "/images/project-screenshot.png",
-     tech: ["Next.js", "TypeScript"],
-     link: "https://github.com/...",
-     demo: "https://demo.url.com",
-   }
-   Taruh screenshot di public/images/
-   ============================================================ */
-
-interface Project {
-  title: string;
-  description: string;
-  image: string;
-  tech: string[];
-  link?: string;
-  demo?: string;
-}
-
-const projects: Project[] = [
-  {
-    title: "Lawan PMO",
-    description:
-      "Mobile app untuk melawan prokrastinasi. Dikembangkan sebagai PM & Full-Stack Dev hingga rilis.",
-    image: "/images/project-lawan-pmo.png",
-    tech: ["Flutter", "Firebase", "Dart"],
-    link: "#",
-  },
-  {
-    title: "Klinik Kecantikan Broy",
-    description:
-      "Sistem manajemen klinik kecantikan — dashboard admin, pelanggan, transaksi, dan jadwal.",
-    image: "/images/project-klinik-kecantikan.png",
-    tech: ["Next.js", "TypeScript", "Prisma"],
-    link: "#",
-  },
-  {
-    title: "Shorts Broy",
-    description:
-      "Tools otomasi pembuatan konten short-form video dengan pipeline CLI yang efisien.",
-    image: "/images/project-shorts-broy.png",
-    tech: ["Python", "FFmpeg", "CLI"],
-    link: "#",
-  },
-];
-
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCard({
+  project,
+}: {
+  project: (typeof projects)[number];
+}) {
   return (
-    <div className="group card-lift rounded-4xl overflow-hidden bg-dark-surface/80 border border-white/5">
+    <Link
+      href={`/projects/${project.slug}`}
+      className="group card-lift block rounded-4xl overflow-hidden bg-dark-surface/80 border border-white/5"
+    >
       {/* Image */}
       <div className="relative h-56 sm:h-64 md:h-72 overflow-hidden">
         <Image
@@ -63,39 +21,27 @@ function ProjectCard({ project }: { project: Project }) {
           className="object-cover transition-transform duration-700 group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, 50vw"
         />
-        {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-60" />
 
-        {/* Hover overlay */}
-        <div className="absolute inset-0 flex items-end p-6 opacity-0 group-hover:opacity-100 transition-all duration-500">
-          <div className="flex gap-2">
-            {project.link && (
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 rounded-full bg-white text-dark text-xs font-semibold hover:bg-accent-bright transition-colors"
-              >
-                GitHub ↗
-              </a>
-            )}
-            {project.demo && (
-              <a
-                href={project.demo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 rounded-full bg-primary text-white text-xs font-semibold hover:bg-primary-dark transition-colors"
-              >
-                Live Demo ↗
-              </a>
-            )}
-          </div>
+        {/* View Project indicator */}
+        <div className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-white/10 backdrop-blur flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-400 translate-y-2 group-hover:translate-y-0">
+          <svg
+            className="w-4 h-4 text-white"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M7 17L17 7M17 7H7M17 7V17" />
+          </svg>
         </div>
       </div>
 
       {/* Content */}
       <div className="p-6 sm:p-8">
-        <h3 className="font-heading text-xl sm:text-2xl font-bold italic text-text-on-dark mb-2">
+        <h3 className="font-heading text-xl sm:text-2xl font-bold italic text-text-on-dark mb-2 group-hover:text-primary-light transition-colors">
           {project.title}
         </h3>
         <p className="text-sm text-dark-muted leading-relaxed mb-5">
@@ -112,14 +58,14 @@ function ProjectCard({ project }: { project: Project }) {
           ))}
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
 export default function ProjectsSection() {
   return (
     <>
-      {/* === Scrolling Text Divider === */}
+      {/* Scrolling Text Divider */}
       <div className="py-6 overflow-hidden bg-dark border-y border-white/5">
         <div className="flex whitespace-nowrap animate-marquee">
           {Array.from({ length: 10 }).map((_, i) => (
@@ -149,27 +95,16 @@ export default function ProjectsSection() {
               </h2>
             </div>
             <p className="text-sm text-dark-muted max-w-sm leading-relaxed">
-              Beberapa project digital yang telah saya kerjakan — dari mobile
-              app hingga web platform dan automation tools.
+              Beberapa project yang telah saya kerjakan, dari mobile app hingga
+              web platform dan automation tools.
             </p>
           </div>
 
           {/* Project Grid */}
           <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
             {projects.map((project) => (
-              <ProjectCard key={project.title} project={project} />
+              <ProjectCard key={project.slug} project={project} />
             ))}
-
-            {/* "More Coming" placeholder card */}
-            <div className="rounded-4xl border-2 border-dashed border-white/10 flex flex-col items-center justify-center min-h-[300px] p-8 text-center">
-              <span className="text-4xl mb-4">🚀</span>
-              <p className="text-lg font-semibold text-dark-muted">
-                More coming soon
-              </p>
-              <p className="text-sm text-dark-muted/60 mt-1">
-                Exciting projects in the pipeline
-              </p>
-            </div>
           </div>
         </div>
       </section>

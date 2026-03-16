@@ -123,9 +123,8 @@ export default function GuestbookSection() {
           >
             {entries.length === 0 && (
               <div className="h-full flex flex-col items-center justify-center text-center">
-                <span className="text-3xl mb-3">📝</span>
                 <p className="text-text-muted text-sm">
-                  Belum ada pesan. Jadilah yang pertama!
+                  Belum ada pesan. Jadilah yang pertama.
                 </p>
               </div>
             )}
