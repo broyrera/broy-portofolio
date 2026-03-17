@@ -11,7 +11,10 @@ function ProjectCard({
   index: number;
 }) {
   return (
-    <ScrollReveal delay={index * 150} direction={index % 2 === 0 ? "left" : "right"}>
+    <ScrollReveal
+      delay={index * 150}
+      direction={index % 2 === 0 ? "left" : "right"}
+    >
       <Link
         href={`/projects/${project.slug}`}
         className="group card-alive block rounded-4xl overflow-hidden bg-dark-surface/80 border border-white/5"
@@ -85,7 +88,10 @@ export default function ProjectsSection() {
       </div>
 
       {/* Dark Portfolio Section */}
-      <section id="projects" className="relative bg-dark py-24 sm:py-32 overflow-hidden">
+      <section
+        id="projects"
+        className="relative bg-dark py-24 sm:py-32 overflow-hidden"
+      >
         {/* Floating blob */}
         <div className="absolute top-20 right-[-200px] w-[500px] h-[500px] rounded-full bg-gradient-to-br from-primary/5 to-transparent blur-3xl animate-float-delayed pointer-events-none" />
 
@@ -104,17 +110,20 @@ export default function ProjectsSection() {
             </ScrollReveal>
             <ScrollReveal delay={100}>
               <p className="text-sm text-dark-muted max-w-sm leading-relaxed">
-                Beberapa project yang telah saya kerjakan, dari mobile app hingga
-                web platform dan automation tools.
+                Beberapa project yang telah saya kerjakan, dari mobile app
+                hingga web platform dan automation tools.
               </p>
             </ScrollReveal>
           </div>
 
           {/* Project Grid */}
           <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
-            {projects.map((project, i) => (
-              <ProjectCard key={project.slug} project={project} index={i} />
-            ))}
+            {projects.map(
+              (project, i) =>
+                project.published && (
+                  <ProjectCard key={project.slug} project={project} index={i} />
+                ),
+            )}
           </div>
         </div>
       </section>

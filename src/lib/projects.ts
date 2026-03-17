@@ -19,6 +19,7 @@ export interface Project {
   year: string;
   link?: string;
   demo?: string;
+  published: boolean;
 }
 
 export const projects: Project[] = [
@@ -35,6 +36,7 @@ export const projects: Project[] = [
     role: "Project Manager & Full-Stack Developer",
     year: "2024",
     link: "#",
+    published: false,
   },
   {
     slug: "klinik-kecantikan-broy",
@@ -49,6 +51,7 @@ export const projects: Project[] = [
     role: "Full-Stack Developer",
     year: "2025",
     link: "#",
+    published: false,
   },
   {
     slug: "shorts-broy",
@@ -63,6 +66,7 @@ export const projects: Project[] = [
     role: "Solo Developer",
     year: "2025",
     link: "#",
+    published: false,
   },
 ];
 
