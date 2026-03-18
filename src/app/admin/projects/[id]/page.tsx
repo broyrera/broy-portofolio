@@ -21,6 +21,7 @@ interface Project {
   link: string;
   demo: string;
   published: boolean;
+  display_order?: number | null;
 }
 
 interface TechOption {
@@ -50,6 +51,7 @@ const initialProject: Project = {
   link: "",
   demo: "",
   published: false,
+  display_order: null,
 };
 
 export default function ProjectFormPage() {
@@ -338,7 +340,24 @@ export default function ProjectFormPage() {
       let result;
 
       if (isNew) {
-        result = await supabase.from("projects").insert([projectData]);
+        // Auto-place new project at the end of current order.
+        let nextDisplayOrder: number | null = null;
+        const maxOrderResult = await supabase
+          .from("projects")
+          .select("display_order")
+          .order("display_order", { ascending: false, nullsFirst: false })
+          .limit(1);
+
+        if (!maxOrderResult.error && maxOrderResult.data && maxOrderResult.data.length > 0) {
+          nextDisplayOrder = (maxOrderResult.data[0].display_order || 0) + 1;
+        }
+
+        const insertPayload =
+          nextDisplayOrder !== null
+            ? [{ ...projectData, display_order: nextDisplayOrder }]
+            : [projectData];
+
+        result = await supabase.from("projects").insert(insertPayload);
       } else {
         result = await supabase
           .from("projects")

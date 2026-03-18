@@ -68,7 +68,7 @@ export default function ProjectDetailPage() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-bg/70 backdrop-blur-2xl">
         <div className="mx-auto max-w-7xl px-6 sm:px-10 py-5 flex items-center justify-between">
           <Link
-            href="/"
+            href="/#projects"
             className="flex items-center gap-3 text-sm text-text-muted hover:text-text transition-colors"
           >
             <svg

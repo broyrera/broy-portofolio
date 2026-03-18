@@ -11,28 +11,87 @@ interface Project {
   description: string;
   year: string;
   published: boolean;
+  display_order?: number | null;
   created_at: string;
 }
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+  const [savingOrder, setSavingOrder] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchProjects = async () => {
-      const { data, error } = await supabase
+      // Try to sort using display_order first. If the column does not exist yet,
+      // fall back to created_at so the page still works.
+      let queryResult = await supabase
         .from("projects")
         .select("*")
+        .order("display_order", { ascending: true, nullsFirst: false })
         .order("created_at", { ascending: false });
 
-      if (!error && data) {
-        setProjects(data);
+      if (queryResult.error?.message?.includes("display_order")) {
+        queryResult = await supabase
+          .from("projects")
+          .select("*")
+          .order("created_at", { ascending: false });
       }
+
+      if (!queryResult.error && queryResult.data) {
+        setProjects(queryResult.data);
+      } else if (queryResult.error) {
+        setError(queryResult.error.message);
+      }
+
       setLoading(false);
     };
 
     fetchProjects();
   }, []);
+
+  const normalizeOrder = (list: Project[]) =>
+    list.map((project, index) => ({
+      ...project,
+      display_order: index + 1,
+    }));
+
+  const moveProject = async (projectId: string, direction: "up" | "down") => {
+    const currentIndex = projects.findIndex((project) => project.id === projectId);
+    if (currentIndex === -1) return;
+
+    const targetIndex = direction === "up" ? currentIndex - 1 : currentIndex + 1;
+    if (targetIndex < 0 || targetIndex >= projects.length) return;
+
+    const reordered = [...projects];
+    const [moved] = reordered.splice(currentIndex, 1);
+    reordered.splice(targetIndex, 0, moved);
+
+    const normalized = normalizeOrder(reordered);
+    setProjects(normalized);
+    setSavingOrder(true);
+    setError("");
+
+    const { error: orderError } = await supabase
+      .from("projects")
+      .upsert(
+        normalized.map((project) => ({
+          id: project.id,
+          display_order: project.display_order,
+        })),
+        { onConflict: "id" }
+      );
+
+    if (orderError) {
+      setError(
+        orderError.message.includes("display_order")
+          ? "Kolom display_order belum ada di database. Jalankan SQL migration di SUPABASE_SETUP.md."
+          : orderError.message
+      );
+    }
+
+    setSavingOrder(false);
+  };
 
   const handleDelete = async (id: string) => {
     if (!confirm("Yakin ingin menghapus project ini?")) return;
@@ -68,6 +127,9 @@ export default function ProjectsPage() {
           <p className="admin-subtle mt-1">Kelola project portfolio dan status publish.</p>
         </div>
         <div className="flex items-center gap-2">
+          {savingOrder && (
+            <span className="text-xs admin-subtle">Menyimpan urutan...</span>
+          )}
           <Link
             href="/admin/tech"
             className="admin-btn-secondary px-4 py-2.5 text-sm font-medium rounded-xl"
@@ -82,6 +144,12 @@ export default function ProjectsPage() {
           </Link>
         </div>
       </div>
+
+      {error && (
+        <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm">
+          {error}
+        </div>
+      )}
 
       {loading ? (
         <div className="flex items-center justify-center h-64">
@@ -110,6 +178,9 @@ export default function ProjectsPage() {
                 </th>
                 <th className="text-left px-6 py-4 text-xs font-semibold text-text/55 uppercase tracking-wider">
                   Status
+                </th>
+                <th className="text-left px-6 py-4 text-xs font-semibold text-text/55 uppercase tracking-wider">
+                  Order
                 </th>
                 <th className="text-right px-6 py-4 text-xs font-semibold text-text/55 uppercase tracking-wider">
                   Actions
@@ -143,6 +214,24 @@ export default function ProjectsPage() {
                     >
                       {project.published ? "Published" : "Draft"}
                     </button>
+                  </td>
+                  <td className="px-6 py-4">
+                    <div className="flex items-center gap-1">
+                      <button
+                        onClick={() => moveProject(project.id, "up")}
+                        disabled={savingOrder}
+                        className="px-2 py-1 text-xs rounded-lg border border-black/15 hover:bg-black/5 disabled:opacity-50"
+                      >
+                        ↑
+                      </button>
+                      <button
+                        onClick={() => moveProject(project.id, "down")}
+                        disabled={savingOrder}
+                        className="px-2 py-1 text-xs rounded-lg border border-black/15 hover:bg-black/5 disabled:opacity-50"
+                      >
+                        ↓
+                      </button>
+                    </div>
                   </td>
                   <td className="px-6 py-4 text-right">
                     <div className="flex items-center justify-end gap-2">

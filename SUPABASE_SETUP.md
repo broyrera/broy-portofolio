@@ -21,8 +21,23 @@ CREATE TABLE projects (
   year TEXT,
   link TEXT,
   demo TEXT,
+  display_order INTEGER,
   published BOOLEAN DEFAULT false
 );
+
+-- Jika tabel projects sudah terlanjur dibuat sebelumnya,
+-- jalankan ini agar fitur urutan project bisa dipakai:
+ALTER TABLE projects
+ADD COLUMN IF NOT EXISTS display_order INTEGER;
+
+WITH ranked_projects AS (
+  SELECT id, ROW_NUMBER() OVER (ORDER BY created_at DESC) AS rn
+  FROM projects
+)
+UPDATE projects p
+SET display_order = rp.rn
+FROM ranked_projects rp
+WHERE p.id = rp.id AND p.display_order IS NULL;
 
 -- Enable Row Level Security
 ALTER TABLE projects ENABLE ROW LEVEL SECURITY;

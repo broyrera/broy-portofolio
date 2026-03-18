@@ -21,6 +21,7 @@ interface Project {
   link?: string;
   demo?: string;
   published: boolean;
+  display_order?: number | null;
 }
 
 function ProjectCard({
@@ -98,14 +99,23 @@ export default function ProjectsSection() {
 
   useEffect(() => {
     const fetchProjects = async () => {
-      const { data, error } = await supabase
+      let result = await supabase
         .from("projects")
         .select("*")
         .eq("published", true)
+        .order("display_order", { ascending: true, nullsFirst: false })
         .order("created_at", { ascending: false });
 
-      if (!error && data) {
-        setProjects(data);
+      if (result.error?.message?.includes("display_order")) {
+        result = await supabase
+          .from("projects")
+          .select("*")
+          .eq("published", true)
+        .order("created_at", { ascending: false });
+      }
+
+      if (!result.error && result.data) {
+        setProjects(result.data);
       }
       setLoading(false);
     };
