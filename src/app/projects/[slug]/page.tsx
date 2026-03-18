@@ -1,36 +1,64 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
-import { projects, getProjectBySlug } from "@/lib/projects";
+import { notFound, useParams } from "next/navigation";
+import { supabase } from "@/lib/supabase";
 
-// Generate static params for all projects
-export function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.slug }));
+interface Project {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  long_description: string;
+  image: string;
+  screenshots: string[];
+  tech: string[];
+  role: string;
+  year: string;
+  link?: string;
+  demo?: string;
+  published: boolean;
 }
 
-// Generate metadata per project
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-  const project = getProjectBySlug(slug);
-  if (!project) return { title: "Project Not Found" };
-  return {
-    title: `${project.title} — Roy Aziz Barera`,
-    description: project.description,
-  };
-}
+export default function ProjectDetailPage() {
+  const params = useParams();
+  const slug = params.slug as string;
+  const [project, setProject] = useState<Project | null>(null);
+  const [loading, setLoading] = useState(true);
 
-export default async function ProjectDetailPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-  const project = getProjectBySlug(slug);
-  if (!project) notFound();
+  useEffect(() => {
+    const fetchProject = async () => {
+      const { data, error } = await supabase
+        .from("projects")
+        .select("*")
+        .eq("slug", slug)
+        .eq("published", true)
+        .single();
+
+      if (!error && data) {
+        setProject(data);
+      }
+      setLoading(false);
+    };
+
+    if (slug) {
+      fetchProject();
+    }
+  }, [slug]);
+
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-bg flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-text/30"></div>
+      </main>
+    );
+  }
+
+  if (!project) {
+    notFound();
+  }
 
   return (
     <main className="min-h-screen bg-bg">
@@ -65,7 +93,7 @@ export default async function ProjectDetailPage({
         <div className="mx-auto max-w-7xl px-6 sm:px-10">
           <div className="relative rounded-4xl overflow-hidden bg-dark aspect-[16/8] sm:aspect-[16/7]">
             <Image
-              src={project.image}
+              src={project.image || "/globe.svg"}
               alt={project.title}
               fill
               className="object-cover"
@@ -75,7 +103,7 @@ export default async function ProjectDetailPage({
             <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent" />
             <div className="absolute bottom-6 sm:bottom-10 left-6 sm:left-10 right-6 sm:right-10">
               <div className="flex flex-wrap gap-2 mb-4">
-                {project.tech.map((t) => (
+                {project.tech?.map((t: string) => (
                   <span
                     key={t}
                     className="px-3 py-1 rounded-full text-xs font-medium bg-white/10 backdrop-blur text-white/80 border border-white/10"
@@ -102,7 +130,7 @@ export default async function ProjectDetailPage({
                 — Overview
               </p>
               <p className="text-lg sm:text-xl text-text leading-relaxed mb-8">
-                {project.longDescription}
+                {project.long_description}
               </p>
 
               {/* External Links */}
@@ -171,7 +199,7 @@ export default async function ProjectDetailPage({
                   Tech Stack
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {project.tech.map((t) => (
+                  {project.tech?.map((t: string) => (
                     <span
                       key={t}
                       className="px-3 py-1.5 rounded-full text-xs font-medium bg-surface border border-text/5 text-text"
@@ -187,14 +215,14 @@ export default async function ProjectDetailPage({
       </section>
 
       {/* Screenshots Gallery */}
-      {project.screenshots.length > 0 && (
+      {project.screenshots && project.screenshots.length > 0 && (
         <section className="pb-24 sm:pb-32">
           <div className="mx-auto max-w-7xl px-6 sm:px-10">
             <p className="text-xs font-semibold tracking-[0.3em] uppercase text-text-muted mb-8">
               — Screenshots
             </p>
             <div className="grid sm:grid-cols-2 gap-6">
-              {project.screenshots.map((src, i) => (
+              {project.screenshots.map((src: string, i: number) => (
                 <div
                   key={i}
                   className="relative rounded-3xl overflow-hidden bg-surface aspect-[16/10] border border-text/5"

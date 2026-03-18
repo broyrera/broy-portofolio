@@ -47,13 +47,16 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Contact CTA */}
-        <a
-          href="mailto:royazizbarera@gmail.com"
-          className="hidden sm:inline-flex px-5 py-2.5 rounded-full bg-text text-bg text-sm font-semibold hover:bg-primary transition-colors duration-300"
-        >
-          Contact
-        </a>
+        {/* Right Side */}
+        <div className="flex items-center gap-4">
+          {/* Contact CTA */}
+          <a
+            href="mailto:royazizbarera@gmail.com"
+            className="hidden sm:inline-flex px-5 py-2.5 rounded-full bg-text text-bg text-sm font-semibold hover:bg-primary transition-colors duration-300"
+          >
+            Contact
+          </a>
+        </div>
       </div>
     </nav>
   );

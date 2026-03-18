@@ -1,13 +1,32 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { projects } from "@/lib/projects";
+import { supabase } from "@/lib/supabase";
 import ScrollReveal from "./ScrollReveal";
+
+interface Project {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  long_description: string;
+  image: string;
+  screenshots: string[];
+  tech: string[];
+  role: string;
+  year: string;
+  link?: string;
+  demo?: string;
+  published: boolean;
+}
 
 function ProjectCard({
   project,
   index,
 }: {
-  project: (typeof projects)[number];
+  project: Project;
   index: number;
 }) {
   return (
@@ -22,7 +41,7 @@ function ProjectCard({
         {/* Image */}
         <div className="relative h-56 sm:h-64 md:h-72 overflow-hidden">
           <Image
-            src={project.image}
+            src={project.image || "/globe.svg"}
             alt={project.title}
             fill
             className="object-cover transition-transform duration-700 group-hover:scale-110"
@@ -55,7 +74,7 @@ function ProjectCard({
             {project.description}
           </p>
           <div className="flex flex-wrap gap-2">
-            {project.tech.map((t) => (
+            {project.tech?.map((t: string) => (
               <span
                 key={t}
                 className="px-3 py-1 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-dark-muted group-hover:border-primary-light/30 group-hover:text-primary-light/70 transition-all duration-300"
@@ -71,6 +90,26 @@ function ProjectCard({
 }
 
 export default function ProjectsSection() {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const { data, error } = await supabase
+        .from("projects")
+        .select("*")
+        .eq("published", true)
+        .order("created_at", { ascending: false });
+
+      if (!error && data) {
+        setProjects(data);
+      }
+      setLoading(false);
+    };
+
+    fetchProjects();
+  }, []);
+
   return (
     <>
       {/* Scrolling Text Divider */}
@@ -116,15 +155,28 @@ export default function ProjectsSection() {
             </ScrollReveal>
           </div>
 
+          {/* Loading State */}
+          {loading && (
+            <div className="flex items-center justify-center py-20">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white/30"></div>
+            </div>
+          )}
+
+          {/* Empty State */}
+          {!loading && projects.length === 0 && (
+            <div className="text-center py-20">
+              <p className="text-dark-muted">Belum ada project yang dipublish.</p>
+            </div>
+          )}
+
           {/* Project Grid */}
-          <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
-            {projects.map(
-              (project, i) =>
-                project.published && (
-                  <ProjectCard key={project.slug} project={project} index={i} />
-                ),
-            )}
-          </div>
+          {!loading && projects.length > 0 && (
+            <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
+              {projects.map((project, i) => (
+                <ProjectCard key={project.id} project={project} index={i} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </>
