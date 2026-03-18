@@ -29,6 +29,14 @@ interface TechOption {
   description: string | null;
 }
 
+const slugify = (value: string) =>
+  value
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+
 const initialProject: Project = {
   slug: "",
   title: "",
@@ -70,6 +78,7 @@ export default function ProjectFormPage() {
   const [newTechOptionName, setNewTechOptionName] = useState("");
   const [newTechOptionDescription, setNewTechOptionDescription] = useState("");
   const [savingTechOption, setSavingTechOption] = useState(false);
+  const [isSlugManuallyEdited, setIsSlugManuallyEdited] = useState(false);
 
   const fetchTechOptions = useCallback(async () => {
     const { data, error: optionsError } = await supabase
@@ -107,10 +116,21 @@ export default function ProjectFormPage() {
 
         if (!error && data) {
           setProject({
-            ...data,
-            screenshots: data.screenshots || [],
+            id: data.id,
+            slug: data.slug || "",
+            title: data.title || "",
+            description: data.description || "",
+            long_description: data.long_description || "",
+            image: data.image || "",
+            screenshots: Array.isArray(data.screenshots) ? data.screenshots : [],
             tech: parseTechEntries(data.tech),
+            role: data.role || "",
+            year: data.year || "",
+            link: data.link || "",
+            demo: data.demo || "",
+            published: Boolean(data.published),
           });
+          setIsSlugManuallyEdited(Boolean(data.slug));
           setImagePreview(data.image || "");
         }
         setLoading(false);
@@ -301,7 +321,7 @@ export default function ProjectFormPage() {
       setUploading(false);
 
       const projectData = {
-        slug: project.slug.toLowerCase().replace(/\s+/g, "-"),
+        slug: slugify(project.slug || project.title),
         title: project.title,
         description: project.description,
         long_description: project.long_description,
@@ -350,24 +370,25 @@ export default function ProjectFormPage() {
   }
 
   return (
-    <div>
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">
+    <div className="space-y-6">
+      <div>
+        <p className="text-xs uppercase tracking-[0.2em] admin-subtle mb-2">Project Editor</p>
+        <h1 className="admin-title text-3xl font-semibold text-text">
           {isNew ? "Add Project" : "Edit Project"}
         </h1>
-        <p className="text-gray-500 mt-1">
+        <p className="admin-subtle mt-1">
           {isNew ? "Tambah project baru" : "Edit project yang ada"}
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6 max-w-3xl">
+      <form onSubmit={handleSubmit} className="space-y-6 w-full">
         {error && (
           <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm">
             {error}
           </div>
         )}
 
-        <div className="bg-white rounded-xl p-6 border border-gray-200 space-y-4">
+        <div className="admin-card rounded-2xl p-6 space-y-4">
           <h2 className="font-semibold text-gray-900 mb-4">Basic Info</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -379,7 +400,14 @@ export default function ProjectFormPage() {
                 type="text"
                 required
                 value={project.title}
-                onChange={(e) => setProject({ ...project, title: e.target.value })}
+                onChange={(e) => {
+                  const nextTitle = e.target.value;
+                  setProject((prev) => ({
+                    ...prev,
+                    title: nextTitle,
+                    slug: isSlugManuallyEdited ? prev.slug : slugify(nextTitle),
+                  }));
+                }}
                 className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent"
                 placeholder="Project Title"
               />
@@ -393,10 +421,23 @@ export default function ProjectFormPage() {
                 type="text"
                 required
                 value={project.slug}
-                onChange={(e) => setProject({ ...project, slug: e.target.value })}
+                onChange={(e) => {
+                  setIsSlugManuallyEdited(true);
+                  setProject({ ...project, slug: slugify(e.target.value) });
+                }}
                 className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent"
                 placeholder="project-slug"
               />
+              <button
+                type="button"
+                onClick={() => {
+                  setIsSlugManuallyEdited(false);
+                  setProject((prev) => ({ ...prev, slug: slugify(prev.title) }));
+                }}
+                className="mt-2 text-xs text-primary hover:underline"
+              >
+                Use title as slug
+              </button>
             </div>
           </div>
 
@@ -476,7 +517,7 @@ export default function ProjectFormPage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl p-6 border border-gray-200 space-y-4">
+        <div className="admin-card rounded-2xl p-6 space-y-4">
           <h2 className="font-semibold text-gray-900 mb-4">Media & Links</h2>
 
           <div>
@@ -491,18 +532,31 @@ export default function ProjectFormPage() {
               className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-gray-100 file:text-sm file:font-medium file:text-gray-700 hover:file:bg-gray-200"
             />
             
-            {/* Image Preview */}
-            {imagePreview && (
-              <div className="mt-4 relative inline-block">
-                <div className="relative w-80 h-44 rounded-lg border border-gray-200 overflow-hidden">
+            <div className="mt-4 relative inline-block w-full max-w-xl">
+              <div className="relative h-52 rounded-xl border border-black/10 overflow-hidden">
+                {imagePreview ? (
                   <Image
                     src={imagePreview}
                     alt="Preview"
                     fill
                     className="object-cover"
-                    sizes="320px"
+                    sizes="(max-width: 768px) 100vw, 640px"
                   />
-                </div>
+                ) : (
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#120d12] via-[#2a1520] to-[#3b1b2b]">
+                    <div className="absolute -top-14 -right-14 w-56 h-56 rounded-full bg-[#d44a6e]/25 blur-3xl" />
+                    <div className="absolute -bottom-12 -left-10 w-44 h-44 rounded-full bg-[#c9a96e]/25 blur-3xl" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="text-center px-4">
+                        <p className="text-sm font-semibold text-white/90">No Cover Uploaded</p>
+                        <p className="text-xs text-white/60 mt-1">Placeholder ini akan tampil sampai kamu upload cover image.</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {imagePreview && (
                 <button
                   type="button"
                   onClick={handleRemoveImage}
@@ -512,8 +566,8 @@ export default function ProjectFormPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
-              </div>
-            )}
+              )}
+            </div>
             
             {uploading && (
               <div className="mt-2 flex items-center gap-2 text-sm text-gray-500">
@@ -593,7 +647,7 @@ export default function ProjectFormPage() {
               )}
           </div>
 
-          <div className="bg-gray-50 rounded-xl border border-gray-200 p-4 sm:p-5 space-y-4">
+          <div className="admin-card-soft rounded-xl border border-black/10 p-4 sm:p-5 space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
               <div>
                 <h3 className="text-sm font-semibold text-gray-800">Tech Stack</h3>
@@ -773,14 +827,14 @@ export default function ProjectFormPage() {
           <button
             type="submit"
             disabled={saving}
-            className="px-6 py-2.5 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 disabled:opacity-50 transition-colors"
+            className="admin-btn-primary px-6 py-2.5 text-sm font-medium rounded-xl disabled:opacity-50"
           >
             {saving ? "Saving..." : isNew ? "Create Project" : "Save Changes"}
           </button>
           <button
             type="button"
             onClick={() => router.push("/admin/projects")}
-            className="px-6 py-2.5 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 transition-colors"
+            className="admin-btn-secondary px-6 py-2.5 text-sm font-medium rounded-xl"
           >
             Cancel
           </button>

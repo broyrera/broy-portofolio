@@ -74,15 +74,15 @@ export default function AdminLoginPage() {
     <div className="w-full max-w-md">
       {/* Logo */}
       <div className="text-center mb-8">
-        <Link href="/" className="text-2xl font-bold text-gray-900">
-          broy.dev
+        <Link href="/" className="text-3xl font-black tracking-tight text-text">
+          broy<span className="text-primary">.dev</span>
         </Link>
-        <p className="text-gray-500 mt-2">Admin Dashboard</p>
+        <p className="admin-subtle mt-2">Admin Dashboard</p>
       </div>
 
       {/* Login Form */}
-      <div className="bg-white rounded-xl p-8 border border-gray-200 shadow-sm">
-        <h1 className="text-xl font-semibold text-gray-900 mb-6">
+      <div className="admin-card rounded-3xl p-8">
+        <h1 className="admin-title text-2xl font-semibold text-text mb-6">
           Sign in to your account
         </h1>
 
@@ -102,7 +102,7 @@ export default function AdminLoginPage() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+              className="w-full px-4 py-2.5 border border-black/15 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent"
               placeholder="you@example.com"
             />
           </div>
@@ -116,7 +116,7 @@ export default function AdminLoginPage() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+              className="w-full px-4 py-2.5 border border-black/15 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent"
               placeholder="••••••••"
             />
           </div>
@@ -124,7 +124,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full px-4 py-3 bg-gray-900 text-white font-medium rounded-lg hover:bg-gray-800 disabled:opacity-50 transition-colors"
+            className="w-full admin-btn-primary px-4 py-3 font-medium rounded-xl disabled:opacity-50"
           >
             {loading ? "Signing in..." : "Sign In"}
           </button>
@@ -135,7 +135,7 @@ export default function AdminLoginPage() {
       <div className="text-center mt-6">
         <Link
           href="/"
-          className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
+          className="text-sm admin-subtle hover:text-text transition-colors"
         >
           ← Back to website
         </Link>

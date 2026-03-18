@@ -45,13 +45,14 @@ export default function GuestbookPage() {
   };
 
   return (
-    <div>
-      <div className="flex items-center justify-between mb-8">
+    <div className="space-y-6">
+      <div className="flex items-end justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Guestbook</h1>
-          <p className="text-gray-500 mt-1">Kelola pesan dari pengunjung</p>
+          <p className="text-xs uppercase tracking-[0.2em] admin-subtle mb-2">Audience</p>
+          <h1 className="admin-title text-3xl font-semibold text-text">Guestbook</h1>
+          <p className="admin-subtle mt-1">Kelola pesan yang masuk dari pengunjung website.</p>
         </div>
-        <div className="text-sm text-gray-500">
+        <div className="text-sm admin-subtle">
           Total: {entries.length} pesan
         </div>
       </div>
@@ -61,33 +62,33 @@ export default function GuestbookPage() {
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
         </div>
       ) : entries.length === 0 ? (
-        <div className="bg-white rounded-xl p-12 border border-gray-200 text-center">
-          <p className="text-gray-500">Belum ada pesan</p>
+        <div className="admin-card rounded-2xl p-12 text-center">
+          <p className="admin-subtle">Belum ada pesan</p>
         </div>
       ) : (
         <div className="space-y-4">
           {entries.map((entry) => (
             <div
               key={entry.id}
-              className="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-md transition-shadow"
+              className="admin-card rounded-2xl p-6"
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
-                    <span className="font-semibold text-gray-900">
+                    <span className="font-semibold text-text">
                       {entry.name}
                     </span>
-                    <span className="text-xs text-gray-500">
+                    <span className="text-xs admin-subtle">
                       {formatDate(entry.created_at)}
                     </span>
                   </div>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-text/80 leading-relaxed">
                     {entry.message}
                   </p>
                 </div>
                 <button
                   onClick={() => handleDelete(entry.id)}
-                  className="p-2 text-gray-400 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors ml-4"
+                  className="p-2 text-text/45 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors ml-4"
                 >
                   <svg
                     className="w-4 h-4"

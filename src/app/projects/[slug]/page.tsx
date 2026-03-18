@@ -95,7 +95,7 @@ export default function ProjectDetailPage() {
         <div className="mx-auto max-w-7xl px-6 sm:px-10">
           <div className="relative rounded-4xl overflow-hidden bg-dark aspect-[16/8] sm:aspect-[16/7]">
             <Image
-              src={project.image || "/globe.svg"}
+              src={project.image || "/images/project-placeholder.svg"}
               alt={project.title}
               fill
               className="object-cover"

@@ -42,15 +42,16 @@ export default function SkillsPage() {
   };
 
   return (
-    <div>
-      <div className="flex items-center justify-between mb-8">
+    <div className="space-y-6">
+      <div className="flex items-end justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Skills</h1>
-          <p className="text-gray-500 mt-1">Kelola tech stack</p>
+          <p className="text-xs uppercase tracking-[0.2em] admin-subtle mb-2">Capabilities</p>
+          <h1 className="admin-title text-3xl font-semibold text-text">Skills</h1>
+          <p className="admin-subtle mt-1">Kelola daftar skill utama untuk portfolio.</p>
         </div>
         <Link
           href="/admin/skills/new"
-          className="px-4 py-2.5 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors"
+          className="admin-btn-primary px-4 py-2.5 text-sm font-medium rounded-xl"
         >
           + Add Skill
         </Link>
@@ -61,9 +62,9 @@ export default function SkillsPage() {
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
         </div>
       ) : skills.length === 0 ? (
-        <div className="bg-white rounded-xl p-12 border border-gray-200 text-center">
-          <p className="text-gray-500 mb-4">Belum ada skill</p>
-          <Link href="/admin/skills/new" className="text-blue-600 hover:underline">
+        <div className="admin-card rounded-2xl p-12 text-center">
+          <p className="admin-subtle mb-4">Belum ada skill</p>
+          <Link href="/admin/skills/new" className="text-primary hover:underline">
             Tambah skill pertama →
           </Link>
         </div>
@@ -72,18 +73,18 @@ export default function SkillsPage() {
           {skills.map((skill) => (
             <div
               key={skill.id}
-              className="bg-white rounded-xl p-4 border border-gray-200 flex items-center justify-between hover:shadow-md transition-shadow"
+              className="admin-card rounded-2xl p-4 flex items-center justify-between hover:-translate-y-0.5 transition-transform"
             >
               <div className="flex items-center gap-3">
-                <span className="px-2.5 py-1 rounded-md bg-gray-100 text-xs font-bold text-gray-500">
+                <span className="px-2.5 py-1 rounded-md admin-pill text-xs font-bold">
                   {skill.tag}
                 </span>
-                <span className="font-medium text-gray-900">{skill.name}</span>
+                <span className="font-medium text-text">{skill.name}</span>
               </div>
               <div className="flex items-center gap-1">
                 <Link
                   href={`/admin/skills/${skill.id}`}
-                  className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-colors"
+                  className="p-2 text-text/45 hover:text-text rounded-lg hover:bg-black/5 transition-colors"
                 >
                   <svg
                     className="w-4 h-4"
@@ -101,7 +102,7 @@ export default function SkillsPage() {
                 </Link>
                 <button
                   onClick={() => handleDelete(skill.id)}
-                  className="p-2 text-gray-400 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors"
+                  className="p-2 text-text/45 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors"
                 >
                   <svg
                     className="w-4 h-4"

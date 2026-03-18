@@ -36,7 +36,11 @@ export default function SkillFormPage() {
           .single();
 
         if (!error && data) {
-          setSkill(data);
+          setSkill({
+            id: data.id,
+            name: data.name || "",
+            tag: data.tag || "",
+          });
         }
         setLoading(false);
       };
@@ -76,24 +80,25 @@ export default function SkillFormPage() {
   }
 
   return (
-    <div>
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">
+    <div className="space-y-6">
+      <div>
+        <p className="text-xs uppercase tracking-[0.2em] admin-subtle mb-2">Skill Editor</p>
+        <h1 className="admin-title text-3xl font-semibold text-text">
           {isNew ? "Add Skill" : "Edit Skill"}
         </h1>
-        <p className="text-gray-500 mt-1">
+        <p className="admin-subtle mt-1">
           {isNew ? "Tambah skill baru" : "Edit skill yang ada"}
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6 max-w-xl">
+      <form onSubmit={handleSubmit} className="space-y-6 w-full">
         {error && (
           <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm">
             {error}
           </div>
         )}
 
-        <div className="bg-white rounded-xl p-6 border border-gray-200 space-y-4">
+        <div className="admin-card rounded-2xl p-6 space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Skill Name *
@@ -103,7 +108,7 @@ export default function SkillFormPage() {
               required
               value={skill.name}
               onChange={(e) => setSkill({ ...skill, name: e.target.value })}
-              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+              className="w-full px-4 py-2.5 border border-black/15 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent"
               placeholder="TypeScript"
             />
           </div>
@@ -117,11 +122,11 @@ export default function SkillFormPage() {
               required
               value={skill.tag}
               onChange={(e) => setSkill({ ...skill, tag: e.target.value.toLowerCase() })}
-              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+              className="w-full px-4 py-2.5 border border-black/15 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent"
               placeholder="ts"
               maxLength={10}
             />
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs admin-subtle mt-1">
               Contoh: TypeScript → ts, JavaScript → js, Go → go
             </p>
           </div>
@@ -131,14 +136,14 @@ export default function SkillFormPage() {
           <button
             type="submit"
             disabled={saving}
-            className="px-6 py-2.5 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 disabled:opacity-50 transition-colors"
+            className="admin-btn-primary px-6 py-2.5 text-sm font-medium rounded-xl disabled:opacity-50"
           >
             {saving ? "Saving..." : isNew ? "Create Skill" : "Save Changes"}
           </button>
           <button
             type="button"
             onClick={() => router.push("/admin/skills")}
-            className="px-6 py-2.5 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 transition-colors"
+            className="admin-btn-secondary px-6 py-2.5 text-sm font-medium rounded-xl"
           >
             Cancel
           </button>

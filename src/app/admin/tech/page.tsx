@@ -149,10 +149,11 @@ export default function TechMasterPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-end justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Project Tech Master</h1>
-          <p className="text-gray-500 mt-1">Kelola daftar tech untuk dipilih di form project</p>
+          <p className="text-xs uppercase tracking-[0.2em] admin-subtle mb-2">Taxonomy</p>
+          <h1 className="admin-title text-3xl font-semibold text-text">Project Tech Master</h1>
+          <p className="admin-subtle mt-1">Daftar tech yang dipakai oleh form project.</p>
         </div>
       </div>
 
@@ -162,8 +163,8 @@ export default function TechMasterPage() {
         </div>
       )}
 
-      <div className="bg-white rounded-xl p-5 border border-gray-200">
-        <p className="text-sm font-medium text-gray-700 mb-3">Tambah tech baru</p>
+      <div className="admin-card rounded-2xl p-5">
+        <p className="text-sm font-medium text-text mb-3">Tambah tech baru</p>
         <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
           <input
             type="text"
@@ -176,29 +177,29 @@ export default function TechMasterPage() {
               }
             }}
             placeholder="Contoh: Next.js"
-            className="sm:col-span-4 px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+            className="sm:col-span-4 px-4 py-2.5 border border-black/15 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent"
           />
           <input
             type="text"
             value={newDescription}
             onChange={(e) => setNewDescription(e.target.value)}
             placeholder="Keterangan default (mis. sering digunakan)"
-            className="sm:col-span-5 px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+            className="sm:col-span-5 px-4 py-2.5 border border-black/15 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent"
           />
           <button
             type="button"
             onClick={() => void handleCreate()}
             disabled={saving}
-            className="sm:col-span-3 px-4 py-2.5 bg-gray-900 text-white rounded-lg hover:bg-gray-800 disabled:opacity-50"
+            className="sm:col-span-3 admin-btn-primary px-4 py-2.5 rounded-xl disabled:opacity-50"
           >
             {saving ? "Saving..." : "Simpan"}
           </button>
         </div>
       </div>
 
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-        <div className="px-5 py-4 border-b border-gray-200 bg-gray-50">
-          <p className="text-sm font-semibold text-gray-700">Daftar Tech ({items.length})</p>
+      <div className="admin-card rounded-2xl overflow-hidden">
+        <div className="px-5 py-4 border-b border-black/10 bg-black/[0.03]">
+          <p className="text-sm font-semibold text-text/75">Daftar Tech ({items.length})</p>
         </div>
 
         {loading ? (
@@ -206,9 +207,9 @@ export default function TechMasterPage() {
             <div className="animate-spin rounded-full h-7 w-7 border-b-2 border-gray-900"></div>
           </div>
         ) : items.length === 0 ? (
-          <div className="p-8 text-center text-gray-500">Belum ada tech master.</div>
+          <div className="p-8 text-center admin-subtle">Belum ada tech master.</div>
         ) : (
-          <div className="divide-y divide-gray-100">
+          <div className="divide-y divide-black/5">
             {items.map((item) => (
               <div key={item.id} className="p-4 flex items-start justify-between gap-3">
                 {editingId === item.id ? (
@@ -217,27 +218,27 @@ export default function TechMasterPage() {
                       type="text"
                       value={editingName}
                       onChange={(e) => setEditingName(e.target.value)}
-                      className="sm:col-span-4 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                      className="sm:col-span-4 px-3 py-2 border border-black/15 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent"
                     />
                     <input
                       type="text"
                       value={editingDescription}
                       onChange={(e) => setEditingDescription(e.target.value)}
-                      className="sm:col-span-5 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                      className="sm:col-span-5 px-3 py-2 border border-black/15 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent"
                     />
                     <div className="sm:col-span-3 flex gap-2">
                       <button
                         type="button"
                         onClick={() => void handleSaveEdit()}
                         disabled={saving}
-                        className="px-3 py-2 bg-gray-900 text-white rounded-lg text-sm hover:bg-gray-800 disabled:opacity-50"
+                        className="px-3 py-2 admin-btn-primary rounded-xl text-sm disabled:opacity-50"
                       >
                         Simpan
                       </button>
                       <button
                         type="button"
                         onClick={cancelEdit}
-                        className="px-3 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50"
+                        className="px-3 py-2 admin-btn-secondary rounded-xl text-sm"
                       >
                         Batal
                       </button>
@@ -246,8 +247,8 @@ export default function TechMasterPage() {
                 ) : (
                   <>
                     <div>
-                      <p className="font-medium text-gray-900">{item.name}</p>
-                      <p className="text-sm text-gray-500 mt-0.5">
+                      <p className="font-medium text-text">{item.name}</p>
+                      <p className="text-sm admin-subtle mt-0.5">
                         {item.description || "-"}
                       </p>
                     </div>
@@ -255,7 +256,7 @@ export default function TechMasterPage() {
                       <button
                         type="button"
                         onClick={() => startEdit(item)}
-                        className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50"
+                        className="px-3 py-1.5 text-sm admin-btn-secondary rounded-xl"
                       >
                         Edit
                       </button>

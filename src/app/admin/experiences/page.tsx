@@ -44,15 +44,16 @@ export default function ExperiencesPage() {
   };
 
   return (
-    <div>
-      <div className="flex items-center justify-between mb-8">
+    <div className="space-y-6">
+      <div className="flex items-end justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Experiences</h1>
-          <p className="text-gray-500 mt-1">Kelola pengalaman kerja</p>
+          <p className="text-xs uppercase tracking-[0.2em] admin-subtle mb-2">Career</p>
+          <h1 className="admin-title text-3xl font-semibold text-text">Experiences</h1>
+          <p className="admin-subtle mt-1">Kelola perjalanan karier dan pengalaman profesional.</p>
         </div>
         <Link
           href="/admin/experiences/new"
-          className="px-4 py-2.5 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors"
+          className="admin-btn-primary px-4 py-2.5 text-sm font-medium rounded-xl"
         >
           + Add Experience
         </Link>
@@ -63,55 +64,55 @@ export default function ExperiencesPage() {
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
         </div>
       ) : experiences.length === 0 ? (
-        <div className="bg-white rounded-xl p-12 border border-gray-200 text-center">
-          <p className="text-gray-500 mb-4">Belum ada pengalaman</p>
+        <div className="admin-card rounded-2xl p-12 text-center">
+          <p className="admin-subtle mb-4">Belum ada pengalaman</p>
           <Link
             href="/admin/experiences/new"
-            className="text-blue-600 hover:underline"
+            className="text-primary hover:underline"
           >
             Tambah pengalaman pertama →
           </Link>
         </div>
       ) : (
-        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <div className="admin-card rounded-2xl overflow-hidden">
           <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-200">
+            <thead className="bg-black/[0.03] border-b border-black/10">
               <tr>
-                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                <th className="text-left px-6 py-4 text-xs font-semibold text-text/55 uppercase tracking-wider">
                   #
                 </th>
-                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                <th className="text-left px-6 py-4 text-xs font-semibold text-text/55 uppercase tracking-wider">
                   Role
                 </th>
-                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                <th className="text-left px-6 py-4 text-xs font-semibold text-text/55 uppercase tracking-wider">
                   Company
                 </th>
-                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                <th className="text-left px-6 py-4 text-xs font-semibold text-text/55 uppercase tracking-wider">
                   Period
                 </th>
-                <th className="text-right px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                <th className="text-right px-6 py-4 text-xs font-semibold text-text/55 uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-black/5">
               {experiences.map((exp) => (
-                <tr key={exp.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 text-sm text-gray-500">{exp.num}</td>
+                <tr key={exp.id} className="hover:bg-black/[0.02]">
+                  <td className="px-6 py-4 text-sm text-text/55">{exp.num}</td>
                   <td className="px-6 py-4">
-                    <p className="font-medium text-gray-900">{exp.role}</p>
+                    <p className="font-medium text-text">{exp.role}</p>
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-600">
+                  <td className="px-6 py-4 text-sm text-text/75">
                     {exp.company}
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-600">
+                  <td className="px-6 py-4 text-sm text-text/75">
                     {exp.period}
                   </td>
                   <td className="px-6 py-4 text-right">
                     <div className="flex items-center justify-end gap-2">
                       <Link
                         href={`/admin/experiences/${exp.id}`}
-                        className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-colors"
+                        className="p-2 text-text/45 hover:text-text rounded-lg hover:bg-black/5 transition-colors"
                       >
                         <svg
                           className="w-4 h-4"
@@ -129,7 +130,7 @@ export default function ExperiencesPage() {
                       </Link>
                       <button
                         onClick={() => handleDelete(exp.id)}
-                        className="p-2 text-gray-400 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors"
+                        className="p-2 text-text/45 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors"
                       >
                         <svg
                           className="w-4 h-4"

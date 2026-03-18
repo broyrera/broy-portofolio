@@ -60,22 +60,23 @@ export default function ProjectsPage() {
   };
 
   return (
-    <div>
-      <div className="flex items-center justify-between mb-8">
+    <div className="space-y-6">
+      <div className="flex items-end justify-between mb-2">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Projects</h1>
-          <p className="text-gray-500 mt-1">Kelola project portfolio</p>
+          <p className="text-xs uppercase tracking-[0.2em] admin-subtle mb-2">Content</p>
+          <h1 className="admin-title text-3xl font-semibold text-text">Projects</h1>
+          <p className="admin-subtle mt-1">Kelola project portfolio dan status publish.</p>
         </div>
         <div className="flex items-center gap-2">
           <Link
             href="/admin/tech"
-            className="px-4 py-2.5 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-100 transition-colors"
+            className="admin-btn-secondary px-4 py-2.5 text-sm font-medium rounded-xl"
           >
             Manage Tech
           </Link>
           <Link
             href="/admin/projects/new"
-            className="px-4 py-2.5 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors"
+            className="admin-btn-primary px-4 py-2.5 text-sm font-medium rounded-xl"
           >
             + Add Project
           </Link>
@@ -87,48 +88,48 @@ export default function ProjectsPage() {
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
         </div>
       ) : projects.length === 0 ? (
-        <div className="bg-white rounded-xl p-12 border border-gray-200 text-center">
-          <p className="text-gray-500 mb-4">Belum ada project</p>
+        <div className="admin-card rounded-2xl p-12 text-center">
+          <p className="admin-subtle mb-4">Belum ada project</p>
           <Link
             href="/admin/projects/new"
-            className="text-blue-600 hover:underline"
+            className="text-primary hover:underline"
           >
             Tambah project pertama →
           </Link>
         </div>
       ) : (
-        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <div className="admin-card rounded-2xl overflow-hidden">
           <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-200">
+            <thead className="bg-black/[0.03] border-b border-black/10">
               <tr>
-                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                <th className="text-left px-6 py-4 text-xs font-semibold text-text/55 uppercase tracking-wider">
                   Project
                 </th>
-                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                <th className="text-left px-6 py-4 text-xs font-semibold text-text/55 uppercase tracking-wider">
                   Year
                 </th>
-                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                <th className="text-left px-6 py-4 text-xs font-semibold text-text/55 uppercase tracking-wider">
                   Status
                 </th>
-                <th className="text-right px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                <th className="text-right px-6 py-4 text-xs font-semibold text-text/55 uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-black/5">
               {projects.map((project) => (
-                <tr key={project.id} className="hover:bg-gray-50">
+                <tr key={project.id} className="hover:bg-black/[0.02]">
                   <td className="px-6 py-4">
                     <div>
-                      <p className="font-medium text-gray-900">
+                      <p className="font-medium text-text">
                         {project.title}
                       </p>
-                      <p className="text-sm text-gray-500 mt-0.5">
+                      <p className="text-sm admin-subtle mt-0.5">
                         {project.slug}
                       </p>
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-600">
+                  <td className="px-6 py-4 text-sm text-text/75">
                     {project.year}
                   </td>
                   <td className="px-6 py-4">
@@ -136,8 +137,8 @@ export default function ProjectsPage() {
                       onClick={() => handleTogglePublish(project)}
                       className={`inline-flex px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
                         project.published
-                          ? "bg-green-100 text-green-700 hover:bg-green-200"
-                          : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                          ? "bg-emerald-100 text-emerald-700 hover:bg-emerald-200"
+                          : "bg-black/10 text-text/65 hover:bg-black/15"
                       }`}
                     >
                       {project.published ? "Published" : "Draft"}
@@ -147,7 +148,7 @@ export default function ProjectsPage() {
                     <div className="flex items-center justify-end gap-2">
                       <Link
                         href={`/admin/projects/${project.id}`}
-                        className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-colors"
+                        className="p-2 text-text/45 hover:text-text rounded-lg hover:bg-black/5 transition-colors"
                       >
                         <svg
                           className="w-4 h-4"
@@ -165,7 +166,7 @@ export default function ProjectsPage() {
                       </Link>
                       <button
                         onClick={() => handleDelete(project.id)}
-                        className="p-2 text-gray-400 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors"
+                        className="p-2 text-text/45 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors"
                       >
                         <svg
                           className="w-4 h-4"

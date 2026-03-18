@@ -1,12 +1,10 @@
 import imageCompression from "browser-image-compression";
+import { supabase } from "@/lib/supabase";
 
 export interface UploadedImage {
   url: string;
   path: string;
 }
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 /**
  * Compress and upload an image to Supabase Storage
@@ -29,36 +27,38 @@ export async function compressAndUploadImage(
   };
 
   try {
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      throw new Error("Supabase environment variables are missing. Please check NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.");
+    }
+
     // Compress the image
     const compressedFile = await imageCompression(file, options);
-    
+
     // Generate unique filename
     const timestamp = Date.now();
     const randomSuffix = Math.random().toString(36).substring(2, 8);
-    const fileName = `${folder}/${timestamp}-${randomSuffix}.webp`;
+    const normalizedFolder = folder.replace(/^\/+|\/+$/g, "");
+    const filePath = `${normalizedFolder}/${timestamp}-${randomSuffix}.webp`;
 
-    // Upload to Supabase Storage
-    const formData = new FormData();
-    formData.append("file", compressedFile);
+    const { error: uploadError } = await supabase.storage
+      .from(bucket)
+      .upload(filePath, compressedFile, {
+        contentType: "image/webp",
+        cacheControl: "3600",
+        upsert: false,
+      });
 
-    const response = await fetch(
-      `${supabaseUrl}/storage/v1/object/${bucket}/${fileName}`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${supabaseAnonKey}`,
-          "Content-Type": compressedFile.type,
-        },
-        body: compressedFile,
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error(`Upload failed: ${response.statusText}`);
+    if (uploadError) {
+      const msg = uploadError.message || "Unknown storage upload error.";
+      throw new Error(`Upload failed: ${msg}. Make sure bucket \"${bucket}\" exists and allows upload.`);
     }
 
-    // Return the public URL
-    return `${supabaseUrl}/storage/v1/object/public/${bucket}/${fileName}`;
+    const { data: publicData } = supabase.storage.from(bucket).getPublicUrl(filePath);
+    if (!publicData?.publicUrl) {
+      throw new Error("Upload succeeded but failed to get public URL.");
+    }
+
+    return publicData.publicUrl;
   } catch (error) {
     console.error("Image upload error:", error);
     throw error;

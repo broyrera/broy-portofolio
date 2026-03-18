@@ -218,3 +218,64 @@ body {
 .stagger-4 { animation-delay: 0.5s; }
 .stagger-5 { animation-delay: 0.65s; }
 .stagger-6 { animation-delay: 0.8s; }
+
+/* === Admin Theme === */
+.admin-bg {
+  background:
+    radial-gradient(1000px 500px at -5% -10%, rgba(148, 35, 69, 0.08), transparent 55%),
+    radial-gradient(900px 400px at 105% 0%, rgba(201, 169, 110, 0.18), transparent 50%),
+    linear-gradient(180deg, #fdf6ee 0%, #faf7f5 35%, #f7f2ec 100%);
+}
+
+.admin-card {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 45px -30px rgba(17, 17, 17, 0.45);
+}
+
+.admin-card-soft {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(17, 17, 17, 0.07);
+  backdrop-filter: blur(8px);
+}
+
+.admin-title {
+  font-family: var(--font-playfair), Georgia, serif;
+  letter-spacing: -0.02em;
+}
+
+.admin-subtle {
+  color: rgba(17, 17, 17, 0.62);
+}
+
+.admin-btn-primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: #fff;
+  border: 1px solid rgba(117, 24, 51, 0.65);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  box-shadow: 0 12px 20px -14px rgba(117, 24, 51, 0.8);
+}
+
+.admin-btn-primary:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+
+.admin-btn-secondary {
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--color-text);
+  border: 1px solid rgba(17, 17, 17, 0.14);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.admin-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(17, 17, 17, 0.24);
+}
+
+.admin-pill {
+  background: rgba(148, 35, 69, 0.09);
+  color: var(--color-primary-dark);
+  border: 1px solid rgba(148, 35, 69, 0.2);
+}
