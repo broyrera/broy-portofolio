@@ -66,12 +66,20 @@ export default function ProjectsPage() {
           <h1 className="text-2xl font-bold text-gray-900">Projects</h1>
           <p className="text-gray-500 mt-1">Kelola project portfolio</p>
         </div>
-        <Link
-          href="/admin/projects/new"
-          className="px-4 py-2.5 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors"
-        >
-          + Add Project
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link
+            href="/admin/tech"
+            className="px-4 py-2.5 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-100 transition-colors"
+          >
+            Manage Tech
+          </Link>
+          <Link
+            href="/admin/projects/new"
+            className="px-4 py-2.5 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors"
+          >
+            + Add Project
+          </Link>
+        </div>
       </div>
 
       {loading ? (

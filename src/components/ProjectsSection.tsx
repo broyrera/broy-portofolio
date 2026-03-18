@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import ScrollReveal from "./ScrollReveal";
+import { getTechNames } from "@/lib/projectTech";
 
 interface Project {
   id: string;
@@ -29,6 +30,8 @@ function ProjectCard({
   project: Project;
   index: number;
 }) {
+  const techNames = getTechNames(project.tech);
+
   return (
     <ScrollReveal
       delay={index * 150}
@@ -74,7 +77,7 @@ function ProjectCard({
             {project.description}
           </p>
           <div className="flex flex-wrap gap-2">
-            {project.tech?.map((t: string) => (
+            {techNames.map((t: string) => (
               <span
                 key={t}
                 className="px-3 py-1 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-dark-muted group-hover:border-primary-light/30 group-hover:text-primary-light/70 transition-all duration-300"

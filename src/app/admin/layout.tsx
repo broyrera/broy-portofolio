@@ -151,6 +151,14 @@ export default function AdminLayout({
               </li>
               <li>
                 <Link
+                  href="/admin/tech"
+                  className="block px-4 py-2.5 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 transition-colors"
+                >
+                  Tech Master
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/admin/guestbook"
                   className="block px-4 py-2.5 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 transition-colors"
                 >

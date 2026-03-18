@@ -38,6 +38,37 @@ CREATE POLICY "Allow admin full access"
   USING (true);
 
 -- ============================================================
+-- PROJECT TECH OPTIONS TABLE (master tech untuk dipilih di form project)
+-- ============================================================
+CREATE TABLE project_tech_options (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  created_at TIMESTAMPTZ DEFAULT now() NOT NULL,
+  name TEXT NOT NULL UNIQUE CHECK (char_length(name) >= 1 AND char_length(name) <= 100),
+  description TEXT
+);
+
+-- Jika tabel project_tech_options sudah terlanjur dibuat sebelumnya,
+-- jalankan ini agar kolom keterangan tersedia:
+ALTER TABLE project_tech_options
+ADD COLUMN IF NOT EXISTS description TEXT;
+
+ALTER TABLE project_tech_options ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Allow public read project tech options"
+  ON project_tech_options;
+
+CREATE POLICY "Allow public read project tech options"
+  ON project_tech_options FOR SELECT
+  USING (true);
+
+DROP POLICY IF EXISTS "Allow admin full access project tech options"
+  ON project_tech_options;
+
+CREATE POLICY "Allow admin full access project tech options"
+  ON project_tech_options FOR ALL
+  USING (true);
+
+-- ============================================================
 -- EXPERIENCES TABLE
 -- ============================================================
 CREATE TABLE experiences (
@@ -112,6 +143,13 @@ CREATE POLICY "Allow admin full access skills"
 -- INSERT INTO projects (slug, title, description, long_description, image, screenshots, tech, role, year, link, published) VALUES
 --   ('lawan-pmo', 'Lawan PMO', 'Mobile app untuk melawan prokrastinasi.', 'Long description here...', '/images/project-lawan-pmo.png', ARRAY['/images/project-lawan-pmo.png'], ARRAY['Flutter', 'Firebase'], 'PM & Full-Stack Dev', '2024', '#', false);
 
+-- INSERT INTO project_tech_options (name) VALUES
+-- INSERT INTO project_tech_options (name, description) VALUES
+--   ('React', 'Sering digunakan untuk UI web'),
+--   ('Next.js', 'Sering digunakan untuk fullstack web app'),
+--   ('TypeScript', 'Digunakan untuk type-safe development'),
+--   ('Supabase', 'Pernah digunakan untuk auth dan database');
+
 -- ============================================================
 -- ADMINS TABLE (for authorized admin emails)
 -- ============================================================
@@ -138,6 +176,7 @@ CREATE POLICY "Allow admin full access admins"
 -- ENABLE REALTIME (optional)
 -- ============================================================
 ALTER PUBLICATION supabase_realtime ADD TABLE projects;
+ALTER PUBLICATION supabase_realtime ADD TABLE project_tech_options;
 ALTER PUBLICATION supabase_realtime ADD TABLE experiences;
 ALTER PUBLICATION supabase_realtime ADD TABLE skills;
 ```

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
 import { supabase } from "@/lib/supabase";
+import { parseTechEntries } from "@/lib/projectTech";
 
 interface Project {
   id: string;
@@ -27,6 +28,7 @@ export default function ProjectDetailPage() {
   const slug = params.slug as string;
   const [project, setProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
+  const techEntries = parseTechEntries(project?.tech);
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -103,12 +105,12 @@ export default function ProjectDetailPage() {
             <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent" />
             <div className="absolute bottom-6 sm:bottom-10 left-6 sm:left-10 right-6 sm:right-10">
               <div className="flex flex-wrap gap-2 mb-4">
-                {project.tech?.map((t: string) => (
+                {techEntries.map((entry) => (
                   <span
-                    key={t}
+                    key={entry.name}
                     className="px-3 py-1 rounded-full text-xs font-medium bg-white/10 backdrop-blur text-white/80 border border-white/10"
                   >
-                    {t}
+                    {entry.name}
                   </span>
                 ))}
               </div>
@@ -198,16 +200,35 @@ export default function ProjectDetailPage() {
                 <p className="text-xs font-semibold tracking-[0.3em] uppercase text-text-muted mb-2">
                   Tech Stack
                 </p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tech?.map((t: string) => (
-                    <span
-                      key={t}
-                      className="px-3 py-1.5 rounded-full text-xs font-medium bg-surface border border-text/5 text-text"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
+                {techEntries.length > 0 && (
+                  <div className="overflow-hidden rounded-xl border border-text/10 bg-surface">
+                    <table className="w-full text-sm">
+                      <thead className="bg-bg/60 border-b border-text/10">
+                        <tr>
+                          <th className="text-left px-3 py-2 text-xs font-semibold tracking-wide uppercase text-text-muted">
+                            Tech
+                          </th>
+                          <th className="text-left px-3 py-2 text-xs font-semibold tracking-wide uppercase text-text-muted">
+                            Penggunaan
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {techEntries.map((entry, index) => (
+                          <tr
+                            key={`${entry.name}-${index}`}
+                            className="border-b border-text/5 last:border-b-0"
+                          >
+                            <td className="px-3 py-2 font-medium text-text">{entry.name}</td>
+                            <td className="px-3 py-2 text-text-muted">
+                              {entry.usage || "-"}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
               </div>
             </div>
           </div>
