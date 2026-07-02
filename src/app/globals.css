@@ -170,6 +170,15 @@ body {
   animation: rotate-gradient 20s ease-in-out reverse infinite;
 }
 
+.animate-spin-slow {
+  animation: spin 12s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 /* === Entrance bounce === */
 @keyframes entrance-bounce {
   0% { opacity: 0; transform: translateY(60px) scale(0.95); }

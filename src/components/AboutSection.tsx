@@ -1,7 +1,4 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
+import aboutData from "@/data/about.json";
 import ScrollReveal from "./ScrollReveal";
 
 interface Skill {
@@ -18,30 +15,10 @@ interface Experience {
   period: string;
 }
 
+const skills = aboutData.skills as Skill[];
+const experiences = aboutData.experiences as Experience[];
+
 export default function AboutSection() {
-  const [skills, setSkills] = useState<Skill[]>([]);
-  const [experiences, setExperiences] = useState<Experience[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const [skillsRes, experiencesRes] = await Promise.all([
-        supabase.from("skills").select("*").order("name", { ascending: true }),
-        supabase.from("experiences").select("*").order("num", { ascending: true }),
-      ]);
-
-      if (!skillsRes.error && skillsRes.data) {
-        setSkills(skillsRes.data);
-      }
-      if (!experiencesRes.error && experiencesRes.data) {
-        setExperiences(experiencesRes.data);
-      }
-      setLoading(false);
-    };
-
-    fetchData();
-  }, []);
-
   return (
     <>
       {/* Scrolling Text Divider */}
@@ -68,7 +45,7 @@ export default function AboutSection() {
             <div className="space-y-8">
               <ScrollReveal>
                 <p className="text-xs font-semibold tracking-[0.3em] uppercase text-text-muted mb-6">
-                  — About
+                  About
                 </p>
                 <h2 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[0.95] lowercase">
                   building
@@ -85,18 +62,18 @@ export default function AboutSection() {
                   <span className="font-semibold text-text">
                     Roy Aziz Barera
                   </span>
-                  , Informatics Engineer dari Politeknik Negeri Bandung. Berfokus
-                  pada backend dan mobile development. Terbiasa memimpin tim,
-                  menulis clean code, dan bekerja secara product-oriented.
+                  , mahasiswa Teknik Informatika semester 8 di Politeknik Negeri Bandung.
+                  Fokus di backend dan mobile development, terbiasa memimpin tim kecil
+                  dan bekerja langsung dari ide sampai rilis.
                 </p>
               </ScrollReveal>
 
               <ScrollReveal delay={200}>
                 <p className="text-sm text-text-muted/70 leading-relaxed max-w-lg">
-                  Berpengalaman memimpin pengembangan aplikasi Lawan PMO sebagai
-                  Project Manager sekaligus Full-Stack Developer hingga rilis.
-                  Peraih penghargaan PIMNAS 2025 — Silver (Poster) & Bronze
-                  (Presentasi) PKM-KI 1.
+                  Memimpin pengembangan aplikasi Lawan PMO sebagai Project Manager sekaligus
+                  Full-Stack Developer dari nol hingga rilis di Play Store.
+                  Finalis dan peraih Setara Perak (Poster) serta Setara Perunggu (Presentasi)
+                  di PKM-KI 1 PIMNAS 2025.
                 </p>
               </ScrollReveal>
 
@@ -126,82 +103,65 @@ export default function AboutSection() {
               {/* Skills */}
               <ScrollReveal direction="right">
                 <p className="text-xs font-semibold tracking-[0.3em] uppercase text-text-muted mb-6">
-                  — Tech Stack
+                  Tech Stack
                 </p>
-                {loading ? (
-                  <div className="flex items-center justify-center py-4">
-                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-text/30"></div>
-                  </div>
-                ) : skills.length === 0 ? (
-                  <p className="text-text-muted text-sm">Belum ada skill.</p>
-                ) : (
-                  <div className="flex flex-wrap gap-3">
-                    {skills.map((s, i) => (
-                      <span
-                        key={s.id}
-                        className="px-4 py-2.5 rounded-full bg-surface border border-text/5 text-sm font-medium text-text flex items-center gap-2 hover:bg-primary hover:text-white hover:border-primary hover:shadow-lg hover:shadow-primary/10 hover:scale-105 transition-all duration-300 cursor-default"
-                        style={{ animationDelay: `${i * 50}ms` }}
-                      >
-                        <span className="text-[10px] font-bold uppercase tracking-wider opacity-50">
-                          {s.tag}
-                        </span>
-                        {s.name}
+                <div className="flex flex-wrap gap-3">
+                  {skills.map((s, i) => (
+                    <span
+                      key={s.id}
+                      className="px-4 py-2.5 rounded-full bg-surface border border-text/5 text-sm font-medium text-text flex items-center gap-2 hover:bg-primary hover:text-white hover:border-primary hover:shadow-lg hover:shadow-primary/10 hover:scale-105 transition-all duration-300 cursor-default"
+                      style={{ animationDelay: `${i * 50}ms` }}
+                    >
+                      <span className="text-[10px] font-bold uppercase tracking-wider opacity-50">
+                        {s.tag}
                       </span>
-                    ))}
-                  </div>
-                )}
+                      {s.name}
+                    </span>
+                  ))}
+                </div>
               </ScrollReveal>
 
               {/* Experience List */}
               <div>
                 <ScrollReveal direction="right" delay={100}>
                   <p className="text-xs font-semibold tracking-[0.3em] uppercase text-text-muted mb-6">
-                    — Experience
+                    Experience
                   </p>
                 </ScrollReveal>
-                
-                {loading ? (
-                  <div className="flex items-center justify-center py-8">
-                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-text/30"></div>
-                  </div>
-                ) : experiences.length === 0 ? (
-                  <p className="text-text-muted text-sm">Belum ada pengalaman.</p>
-                ) : (
-                  <div className="space-y-0 divide-y divide-text/8">
-                    {experiences.map((exp, i) => (
-                      <ScrollReveal key={exp.id} delay={150 + i * 100}>
-                        <div className="group py-5 flex items-start gap-4 sm:gap-6 cursor-default hover:bg-surface/50 transition-all duration-500 -mx-4 px-4 rounded-2xl">
-                          <span className="text-xs font-semibold text-text-light mt-1.5 group-hover:text-primary transition-colors duration-300">
-                            {exp.num}
-                          </span>
-                          <div className="flex-1 min-w-0">
-                            <p className="font-heading text-lg sm:text-xl font-bold italic text-text group-hover:text-primary transition-colors duration-300">
-                              {exp.role}
-                            </p>
-                            <p className="text-sm text-text-muted mt-0.5">
-                              {exp.company}
-                            </p>
-                          </div>
-                          <span className="text-xs text-text-light whitespace-nowrap mt-1.5 hidden sm:block">
-                            {exp.period}
-                          </span>
-                          {/* Hover arrow */}
-                          <svg
-                            className="w-4 h-4 text-text-light mt-1.5 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <path d="M7 17L17 7M17 7H7M17 7V17" />
-                          </svg>
+
+                <div className="space-y-0 divide-y divide-text/8">
+                  {experiences.map((exp, i) => (
+                    <ScrollReveal key={exp.id} delay={150 + i * 100}>
+                      <div className="group py-5 flex items-start gap-4 sm:gap-6 cursor-default hover:bg-surface/50 transition-all duration-500 -mx-4 px-4 rounded-2xl">
+                        <span className="text-xs font-semibold text-text-light mt-1.5 group-hover:text-primary transition-colors duration-300">
+                          {exp.num}
+                        </span>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-heading text-lg sm:text-xl font-bold italic text-text group-hover:text-primary transition-colors duration-300">
+                            {exp.role}
+                          </p>
+                          <p className="text-sm text-text-muted mt-0.5">
+                            {exp.company}
+                          </p>
                         </div>
-                      </ScrollReveal>
-                    ))}
-                  </div>
-                )}
+                        <span className="text-xs text-text-light whitespace-nowrap mt-1.5 hidden sm:block">
+                          {exp.period}
+                        </span>
+                        <svg
+                          className="w-4 h-4 text-text-light mt-1.5 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M7 17L17 7M17 7H7M17 7V17" />
+                        </svg>
+                      </div>
+                    </ScrollReveal>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

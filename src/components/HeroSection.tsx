@@ -44,22 +44,27 @@ export default function HeroSection() {
       <div className="relative z-10 w-full flex flex-col items-center pt-28 pb-0">
         {/* Script greeting */}
         <h2
-          className="font-accent italic text-5xl sm:text-7xl md:text-8xl text-text/70 tracking-wide mb-[-40px] sm:mb-[-60px] md:mb-[-70px] z-0 select-none opacity-0 animate-entrance stagger-1"
+          className="font-accent italic text-4xl sm:text-5xl md:text-6xl text-text/70 tracking-wide mb-[-32px] sm:mb-[-44px] md:mb-[-52px] z-0 select-none opacity-0 animate-entrance stagger-1"
         >
           Hey, there
         </h2>
 
         {/* Personal Photo with glow */}
         <Magnetic strength={0.15}>
-          <div className="relative z-10 w-52 h-52 sm:w-64 sm:h-64 md:w-80 md:h-80 rounded-full overflow-hidden glow-pulse border-4 border-white/60 opacity-0 animate-entrance stagger-2">
-            <Image
-              src="/images/roy-photo.png"
-              alt="Roy Aziz Barera"
-              fill
-              className="object-cover object-top"
-              sizes="320px"
-              priority
-            />
+          <div className="relative z-10 opacity-0 animate-entrance stagger-2">
+            {/* Outer visible ring */}
+            <div className="absolute inset-[-6px] rounded-full border border-text/15" />
+            <div className="absolute inset-[-14px] rounded-full border border-dashed border-text/8 animate-spin-slow" />
+            <div className="w-40 h-40 sm:w-52 sm:h-52 md:w-60 md:h-60 rounded-full overflow-hidden glow-pulse border-2 border-white/40 shadow-xl">
+              <Image
+                src="/images/roy-photo.png"
+                alt="Roy Aziz Barera"
+                fill
+                className="object-cover object-top"
+                sizes="260px"
+                priority
+              />
+            </div>
           </div>
         </Magnetic>
 
@@ -103,10 +108,10 @@ export default function HeroSection() {
       <div className="relative z-10 w-full mt-auto pb-8 sm:pb-12 opacity-0 animate-entrance stagger-6">
         <div className="mx-auto max-w-7xl px-6 sm:px-10">
           <div className="flex flex-col sm:flex-row items-end justify-between gap-4">
-            <h1 className="text-[2.5rem] sm:text-[4.5rem] md:text-[6.5rem] lg:text-[8rem] font-black leading-[0.85] tracking-[-0.04em] uppercase text-text">
+            <h1 className="text-[2rem] sm:text-[3.5rem] md:text-[5rem] lg:text-[5.5rem] font-black leading-[0.85] tracking-[-0.04em] uppercase text-text">
               I AM
               <br />
-              <span className="text-shimmer">ROY</span> BARERA
+              <span className="text-shimmer">ROY</span> AZIZ BARERA
             </h1>
 
             <div className="sm:text-right pb-2">
