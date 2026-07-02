@@ -1,0 +1,186 @@
+[
+  {
+    "id": "local-1",
+    "slug": "lawan-pmo",
+    "title": "Lawan PMO",
+    "description": "Aplikasi mobile self-regulation untuk pemulihan dari kebiasaan PMO, dengan 350+ pengguna terdaftar di rilis pertama.",
+    "long_description": "Aplikasi Android untuk membantu pengguna berhenti dari kebiasaan PMO menggunakan pendekatan PI Model dan MBSR. Saya memimpin tim 5 orang sebagai Project Manager sekaligus mengerjakan seluruh codebase Android (Kotlin) dan backend (NestJS).\n\nCI/CD pipeline dibangun dari nol menggunakan GitHub Actions di tiga environment (dev, staging, production). Fitur yang diimplementasikan antara lain FCM push notification, Google OAuth, multi-environment build variant, dan modul parental control dengan deteksi penggunaan aplikasi serta URL secara real-time di Android.\n\nRilis perdana di Play Store dengan 350+ pengguna terdaftar. Seluruh proses Play Store dikelola mulai dari publikasi, konfigurasi kebijakan, hingga rollout ke production.",
+    "image": "/images/projects/lawan-pmo/cover.png",
+    "screenshots": [
+      "/images/projects/lawan-pmo/screen-1.png",
+      "/images/projects/lawan-pmo/screen-2.png",
+      "/images/projects/lawan-pmo/screen-3.png",
+      "/images/projects/lawan-pmo/screen-4.png",
+      "/images/projects/lawan-pmo/screen-5.png",
+      "/images/projects/lawan-pmo/screen-6.png",
+      "/images/projects/lawan-pmo/screen-7.png",
+      "/images/projects/lawan-pmo/screen-8.png",
+      "/images/projects/lawan-pmo/screen-9.png"
+    ],
+    "tech": [
+      "{\"name\":\"Kotlin\",\"usage\":\"Android, bahasa utama\"}",
+      "{\"name\":\"NestJS\",\"usage\":\"Backend framework\"}",
+      "{\"name\":\"TypeScript\",\"usage\":\"Codebase backend\"}",
+      "{\"name\":\"GitHub Actions\",\"usage\":\"CI/CD pipeline\"}",
+      "{\"name\":\"FCM\",\"usage\":\"Push notification\"}",
+      "{\"name\":\"Google OAuth\",\"usage\":\"Autentikasi\"}",
+      "{\"name\":\"PostgreSQL\",\"usage\":\"Database\"}",
+      "{\"name\":\"VPS\",\"usage\":\"Server management\"}"
+    ],
+    "role": "Project Manager & Full-Stack Developer",
+    "year": "2025",
+    "link": null,
+    "demo": null,
+    "published": true,
+    "display_order": 1
+  },
+  {
+    "id": "local-2",
+    "slug": "broy-pos",
+    "title": "Broy POS",
+    "description": "Sistem POS yang terintegrasi dengan CMS dan auto-reply AI multi-provider via WhatsApp.",
+    "long_description": "Sistem Point of Sale yang digabung dengan CMS untuk mengelola percakapan customer service via WhatsApp. Auto-reply menggunakan AI dengan dukungan multi-provider (OpenAI, Anthropic, Gemini, dll.) yang bisa diganti tanpa ubah kode.\n\nTerdiri dari beberapa worker terpisah untuk pengiriman pesan, webhook, handoff, dan notifikasi. Dilengkapi E2E test dengan Playwright dan unit test untuk simulasi percakapan AI. Deployment menggunakan Docker.",
+    "image": "/images/projects/broy-pos/cover.png",
+    "screenshots": [
+      "/images/projects/broy-pos/screen-1.png",
+      "/images/projects/broy-pos/screen-2.png",
+      "/images/projects/broy-pos/screen-3.png",
+      "/images/projects/broy-pos/screen-4.png",
+      "/images/projects/broy-pos/screen-5.png"
+    ],
+    "tech": [
+      "{\"name\":\"Next.js\",\"usage\":\"Fullstack framework\"}",
+      "{\"name\":\"TypeScript\",\"usage\":\"Bahasa utama\"}",
+      "{\"name\":\"Prisma\",\"usage\":\"ORM\"}",
+      "{\"name\":\"PostgreSQL\",\"usage\":\"Database\"}",
+      "{\"name\":\"WhatsApp (Baileys)\",\"usage\":\"Customer messaging\"}",
+      "{\"name\":\"AI Multi-Provider\",\"usage\":\"Auto-reply engine\"}",
+      "{\"name\":\"Docker\",\"usage\":\"Containerization\"}",
+      "{\"name\":\"NextAuth\",\"usage\":\"Autentikasi\"}"
+    ],
+    "role": "Solo Developer",
+    "year": "2025",
+    "link": null,
+    "demo": null,
+    "published": true,
+    "display_order": 2
+  },
+  {
+    "id": "local-3",
+    "slug": "crypto-broy",
+    "title": "Crypto Broy",
+    "description": "Dashboard crypto personal dengan data real-time dari Indodax, dibangun dengan Go backend dan Next.js frontend.",
+    "long_description": "Dashboard monitoring dan trading crypto yang terhubung ke Indodax API. Backend dibangun dengan Go, frontend dengan Next.js.\n\nFitur candlestick chart real-time menggunakan lightweight-charts, autentikasi via Google OAuth, dan data fetching dengan TanStack React Query. Disusun sebagai monorepo modular dengan folder terpisah untuk frontend, backend, dan docs.",
+    "image": "/images/projects/crypto-broy/cover.png",
+    "screenshots": [
+      "/images/projects/crypto-broy/screen-1.png"
+    ],
+    "tech": [
+      "{\"name\":\"Go\",\"usage\":\"Backend API\"}",
+      "{\"name\":\"Next.js\",\"usage\":\"Frontend\"}",
+      "{\"name\":\"TypeScript\",\"usage\":\"Codebase frontend\"}",
+      "{\"name\":\"React Query\",\"usage\":\"Data fetching\"}",
+      "{\"name\":\"lightweight-charts\",\"usage\":\"Visualisasi chart\"}",
+      "{\"name\":\"Framer Motion\",\"usage\":\"Animasi\"}"
+    ],
+    "role": "Solo Developer",
+    "year": "2025",
+    "link": null,
+    "demo": null,
+    "published": true,
+    "display_order": 3
+  },
+  {
+    "id": "local-4",
+    "slug": "simeta",
+    "title": "Simeta",
+    "description": "Sistem informasi untuk mengelola kegiatan, anggota, dan kredensial organisasi Metagama di Politeknik Negeri Bandung.",
+    "long_description": "Sistem informasi web untuk organisasi Metagama di Politeknik Negeri Bandung. Mengelola keanggotaan, penerbitan kredensial dengan antrian email, serta kegiatan dan event organisasi.\n\nDeployment menggunakan Docker di dua environment (dev dan production). Dilengkapi script migrasi data untuk backfill keanggotaan grup.",
+    "image": "/images/projects/simeta/cover.png",
+    "screenshots": [
+      "/images/projects/simeta/screen-1.png",
+      "/images/projects/simeta/screen-2.png",
+      "/images/projects/simeta/screen-3.png",
+      "/images/projects/simeta/screen-4.png",
+      "/images/projects/simeta/screen-5.png",
+      "/images/projects/simeta/screen-6.png"
+    ],
+    "tech": [
+      "{\"name\":\"Next.js\",\"usage\":\"Fullstack framework\"}",
+      "{\"name\":\"TypeScript\",\"usage\":\"Bahasa utama\"}",
+      "{\"name\":\"Prisma\",\"usage\":\"ORM\"}",
+      "{\"name\":\"PostgreSQL\",\"usage\":\"Database\"}",
+      "{\"name\":\"Docker\",\"usage\":\"Containerization\"}"
+    ],
+    "role": "Developer",
+    "year": "2024 – 2025",
+    "link": null,
+    "demo": null,
+    "published": true,
+    "display_order": 4
+  },
+  {
+    "id": "local-5",
+    "slug": "klinik-erp",
+    "title": "Klinik ERP",
+    "description": "Sistem ERP untuk manajemen klinik dibangun dengan Go, Gin, dan GORM menggunakan clean architecture.",
+    "long_description": "Sistem ERP backend untuk operasional klinik, mencakup data pasien, jadwal, dan inventaris.\n\nDisusun dengan clean architecture (cmd / internal / pkg) menggunakan Gin sebagai HTTP framework dan GORM untuk ORM PostgreSQL. Deployment menggunakan Docker Compose.",
+    "image": null,
+    "screenshots": [],
+    "tech": [
+      "{\"name\":\"Go\",\"usage\":\"Bahasa utama\"}",
+      "{\"name\":\"Gin\",\"usage\":\"HTTP framework\"}",
+      "{\"name\":\"GORM\",\"usage\":\"ORM\"}",
+      "{\"name\":\"PostgreSQL\",\"usage\":\"Database\"}",
+      "{\"name\":\"Docker\",\"usage\":\"Containerization\"}"
+    ],
+    "role": "Developer",
+    "year": "2025",
+    "link": null,
+    "demo": null,
+    "published": false,
+    "display_order": 5
+  },
+  {
+    "id": "local-6",
+    "slug": "bot-ig-broy",
+    "title": "Bot IG Broy",
+    "description": "Bot otomasi Instagram untuk scraping konten, dibangun dengan Python menggunakan Plugin Pattern.",
+    "long_description": "Bot otomasi Instagram untuk scraping konten dan manajemen akun. Dirancang dengan Plugin Pattern supaya behavior baru bisa ditambahkan tanpa mengubah kode inti.\n\nSetiap behavior adalah plugin mandiri di folder behaviors/. Menambah fitur baru cukup tambah satu file, tanpa perlu menyentuh core. Mendukung multi-akun dengan state session per akun yang terisolasi.",
+    "image": "/images/projects/bot-ig-broy/cover.png",
+    "screenshots": [],
+    "tech": [
+      "{\"name\":\"Python\",\"usage\":\"Bahasa utama\"}",
+      "{\"name\":\"Plugin Pattern\",\"usage\":\"Arsitektur\"}",
+      "{\"name\":\"Instagram API\",\"usage\":\"Target scraping\"}"
+    ],
+    "role": "Solo Developer",
+    "year": "2025",
+    "link": null,
+    "demo": null,
+    "published": true,
+    "display_order": 6
+  },
+  {
+    "id": "local-7",
+    "slug": "gold-flossaluto",
+    "title": "Gold Flossaluto",
+    "description": "Landing page untuk brand Gold Flossaluto, dibangun dengan Next.js, Firebase, dan Framer Motion.",
+    "long_description": "Landing page untuk brand Gold Flossaluto dengan desain clean dan animasi Framer Motion. Firebase digunakan untuk backend dan hosting.",
+    "image": "/images/projects/gold-flossaluto/cover.png",
+    "screenshots": [],
+    "tech": [
+      "{\"name\":\"Next.js\",\"usage\":\"Framework\"}",
+      "{\"name\":\"TypeScript\",\"usage\":\"Bahasa\"}",
+      "{\"name\":\"Firebase\",\"usage\":\"Backend dan hosting\"}",
+      "{\"name\":\"Framer Motion\",\"usage\":\"Animasi\"}",
+      "{\"name\":\"Tailwind CSS\",\"usage\":\"Styling\"}"
+    ],
+    "role": "Developer",
+    "year": "2025",
+    "link": null,
+    "demo": null,
+    "published": true,
+    "display_order": 7
+  }
+]

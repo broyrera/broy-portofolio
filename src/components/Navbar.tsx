@@ -7,7 +7,6 @@ const navLinks = [
   { href: "#hero", label: "Home" },
   { href: "#about", label: "About" },
   { href: "#projects", label: "Works" },
-  { href: "#guestbook", label: "Guestbook" },
 ];
 
 export default function Navbar() {
@@ -31,7 +30,7 @@ export default function Navbar() {
           href="#"
           className="font-heading text-xl sm:text-2xl font-bold italic text-text"
         >
-          Roy Barera<span className="text-primary">.</span>
+          Roy Aziz Barera<span className="text-primary">.</span>
         </Link>
 
         {/* Center Nav */}

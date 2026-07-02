@@ -1,0 +1,44 @@
+{
+  "skills": [
+    { "id": "1", "name": "Kotlin", "tag": "kt" },
+    { "id": "2", "name": "Flutter", "tag": "fl" },
+    { "id": "3", "name": "TypeScript", "tag": "ts" },
+    { "id": "4", "name": "NestJS", "tag": "nj" },
+    { "id": "5", "name": "Go", "tag": "go" },
+    { "id": "6", "name": "Next.js", "tag": "nx" },
+    { "id": "7", "name": "Python", "tag": "py" },
+    { "id": "8", "name": "Docker", "tag": "dk" },
+    { "id": "9", "name": "GitHub", "tag": "gh" },
+    { "id": "10", "name": "PostgreSQL", "tag": "pg" }
+  ],
+  "experiences": [
+    {
+      "id": "1",
+      "num": "01",
+      "role": "Mobile Developer",
+      "company": "PT Neural Technologies Indonesia",
+      "period": "Jun – Okt 2025"
+    },
+    {
+      "id": "2",
+      "num": "02",
+      "role": "Project Manager & Full-Stack Developer",
+      "company": "Tim Lawan PMO",
+      "period": "Jul 2025 – sekarang"
+    },
+    {
+      "id": "3",
+      "num": "03",
+      "role": "Ketua Unit Kewirausahaan",
+      "company": "HIMAKOM Polban",
+      "period": "Feb 2024 – Jan 2025"
+    },
+    {
+      "id": "4",
+      "num": "04",
+      "role": "Staf Muda",
+      "company": "HIMAKOM Polban",
+      "period": "Feb 2023 – Jan 2024"
+    }
+  ]
+}

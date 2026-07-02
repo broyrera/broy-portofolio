@@ -1,9 +1,6 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { supabase } from "@/lib/supabase";
+import projectsData from "@/data/projects.json";
 import ScrollReveal from "./ScrollReveal";
 import { getTechNames } from "@/lib/projectTech";
 
@@ -13,37 +10,28 @@ interface Project {
   title: string;
   description: string;
   long_description: string;
-  image: string;
+  image: string | null;
   screenshots: string[];
   tech: string[];
   role: string;
   year: string;
-  link?: string;
-  demo?: string;
+  link?: string | null;
+  demo?: string | null;
   published: boolean;
   display_order?: number | null;
 }
 
-function ProjectCard({
-  project,
-  index,
-}: {
-  project: Project;
-  index: number;
-}) {
+function ProjectCard({ project, index }: { project: Project; index: number }) {
   const techNames = getTechNames(project.tech);
 
   return (
-    <ScrollReveal
-      delay={index * 150}
-      direction={index % 2 === 0 ? "left" : "right"}
-    >
+    <ScrollReveal delay={index * 150} direction={index % 2 === 0 ? "left" : "right"}>
       <Link
         href={`/projects/${project.slug}`}
         className="group card-alive block rounded-4xl overflow-hidden bg-dark-surface/80 border border-white/5"
       >
         {/* Image */}
-        <div className="relative h-56 sm:h-64 md:h-72 overflow-hidden">
+        <div className="relative aspect-[16/9] overflow-hidden">
           <Image
             src={project.image || "/images/project-placeholder.svg"}
             alt={project.title}
@@ -93,36 +81,11 @@ function ProjectCard({
   );
 }
 
+const projects: Project[] = (projectsData as Project[])
+  .filter((p) => p.published)
+  .sort((a, b) => (a.display_order ?? 999) - (b.display_order ?? 999));
+
 export default function ProjectsSection() {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchProjects = async () => {
-      let result = await supabase
-        .from("projects")
-        .select("*")
-        .eq("published", true)
-        .order("display_order", { ascending: true, nullsFirst: false })
-        .order("created_at", { ascending: false });
-
-      if (result.error?.message?.includes("display_order")) {
-        result = await supabase
-          .from("projects")
-          .select("*")
-          .eq("published", true)
-        .order("created_at", { ascending: false });
-      }
-
-      if (!result.error && result.data) {
-        setProjects(result.data);
-      }
-      setLoading(false);
-    };
-
-    fetchProjects();
-  }, []);
-
   return (
     <>
       {/* Scrolling Text Divider */}
@@ -152,7 +115,7 @@ export default function ProjectsSection() {
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-16">
             <ScrollReveal>
               <p className="text-xs font-semibold tracking-[0.3em] uppercase text-dark-muted mb-4">
-                — Portfolio
+                Portfolio
               </p>
               <h2 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight lowercase text-text-on-dark leading-[0.95]">
                 selected
@@ -168,22 +131,15 @@ export default function ProjectsSection() {
             </ScrollReveal>
           </div>
 
-          {/* Loading State */}
-          {loading && (
-            <div className="flex items-center justify-center py-20">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white/30"></div>
-            </div>
-          )}
-
           {/* Empty State */}
-          {!loading && projects.length === 0 && (
+          {projects.length === 0 && (
             <div className="text-center py-20">
               <p className="text-dark-muted">Belum ada project yang dipublish.</p>
             </div>
           )}
 
           {/* Project Grid */}
-          {!loading && projects.length > 0 && (
+          {projects.length > 0 && (
             <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
               {projects.map((project, i) => (
                 <ProjectCard key={project.id} project={project} index={i} />

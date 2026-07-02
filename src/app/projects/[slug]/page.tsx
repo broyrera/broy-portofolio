@@ -1,11 +1,9 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound, useParams } from "next/navigation";
-import { supabase } from "@/lib/supabase";
+import { notFound } from "next/navigation";
+import projectsData from "@/data/projects.json";
 import { parseTechEntries } from "@/lib/projectTech";
+import ImageGallery from "@/components/ImageGallery";
 
 interface Project {
   id: string;
@@ -13,54 +11,35 @@ interface Project {
   title: string;
   description: string;
   long_description: string;
-  image: string;
+  image: string | null;
   screenshots: string[];
   tech: string[];
   role: string;
   year: string;
-  link?: string;
-  demo?: string;
+  link?: string | null;
+  demo?: string | null;
   published: boolean;
 }
 
-export default function ProjectDetailPage() {
-  const params = useParams();
-  const slug = params.slug as string;
-  const [project, setProject] = useState<Project | null>(null);
-  const [loading, setLoading] = useState(true);
-  const techEntries = parseTechEntries(project?.tech);
+export function generateStaticParams() {
+  return (projectsData as Project[])
+    .filter((p) => p.published)
+    .map((p) => ({ slug: p.slug }));
+}
 
-  useEffect(() => {
-    const fetchProject = async () => {
-      const { data, error } = await supabase
-        .from("projects")
-        .select("*")
-        .eq("slug", slug)
-        .eq("published", true)
-        .single();
+export default async function ProjectDetailPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const project = (projectsData as Project[]).find(
+    (p) => p.slug === slug && p.published
+  );
 
-      if (!error && data) {
-        setProject(data);
-      }
-      setLoading(false);
-    };
+  if (!project) notFound();
 
-    if (slug) {
-      fetchProject();
-    }
-  }, [slug]);
-
-  if (loading) {
-    return (
-      <main className="min-h-screen bg-bg flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-text/30"></div>
-      </main>
-    );
-  }
-
-  if (!project) {
-    notFound();
-  }
+  const techEntries = parseTechEntries(project.tech);
 
   return (
     <main className="min-h-screen bg-bg">
@@ -129,9 +108,9 @@ export default function ProjectDetailPage() {
             {/* Main Description */}
             <div className="lg:col-span-2">
               <p className="text-xs font-semibold tracking-[0.3em] uppercase text-text-muted mb-6">
-                — Overview
+                Overview
               </p>
-              <p className="text-lg sm:text-xl text-text leading-relaxed mb-8">
+              <p className="text-lg sm:text-xl text-text leading-relaxed mb-8 whitespace-pre-line">
                 {project.long_description}
               </p>
 
@@ -235,32 +214,14 @@ export default function ProjectDetailPage() {
         </div>
       </section>
 
-      {/* Screenshots Gallery */}
-      {project.screenshots && project.screenshots.length > 0 && (
-        <section className="pb-24 sm:pb-32">
-          <div className="mx-auto max-w-7xl px-6 sm:px-10">
-            <p className="text-xs font-semibold tracking-[0.3em] uppercase text-text-muted mb-8">
-              — Screenshots
-            </p>
-            <div className="grid sm:grid-cols-2 gap-6">
-              {project.screenshots.map((src: string, i: number) => (
-                <div
-                  key={i}
-                  className="relative rounded-3xl overflow-hidden bg-surface aspect-[16/10] border border-text/5"
-                >
-                  <Image
-                    src={src}
-                    alt={`${project.title} screenshot ${i + 1}`}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      {/* Screenshots Gallery — cover + screenshots digabung */}
+      <ImageGallery
+        images={[
+          ...(project.image ? [project.image] : []),
+          ...(project.screenshots ?? []),
+        ]}
+        projectTitle={project.title}
+      />
 
       {/* Back CTA */}
       <section className="pb-16">

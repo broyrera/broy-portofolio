@@ -13,7 +13,6 @@ export default function Footer() {
               { href: "#hero", label: "Home" },
               { href: "#about", label: "About" },
               { href: "#projects", label: "Portfolio" },
-              { href: "#guestbook", label: "Guestbook" },
               { href: "mailto:royazizbarera@gmail.com", label: "Contact" },
             ].map((link) => (
               <a
@@ -29,7 +28,7 @@ export default function Footer() {
 
         {/* Giant Name */}
         <h2 className="text-[4rem] sm:text-[6rem] md:text-[8rem] lg:text-[10rem] font-black tracking-tighter lowercase leading-[0.85] text-text/[0.06] select-none overflow-hidden">
-          roy barera
+          roy aziz barera
         </h2>
 
         {/* Bottom */}
