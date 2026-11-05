@@ -68,8 +68,18 @@ export default async function ProjectDetailPage({
             />
             <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent" />
             <div className="absolute bottom-6 sm:bottom-10 left-6 sm:left-10 right-6 sm:right-10">
-              <div className="flex flex-wrap gap-2 mb-4">
-                {techEntries.map((entry) => (
+              <div className="flex flex-wrap items-center gap-2 mb-4">
+                {project.category_label && (
+                  <span className="px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-primary text-white border border-primary-light/40">
+                    {project.category_label}
+                  </span>
+                )}
+                {project.highlight_metric && (
+                  <span className="px-3 py-1 rounded-full text-xs font-medium bg-white/20 backdrop-blur text-white border border-white/20">
+                    {project.highlight_metric}
+                  </span>
+                )}
+                {techEntries.slice(0, 4).map((entry) => (
                   <span
                     key={entry.name}
                     className="px-3 py-1 rounded-full text-xs font-medium bg-white/10 backdrop-blur text-white/80 border border-white/10"

@@ -1,44 +1,278 @@
 {
+  "bio_headline": "Engineering reliable systems, from architecture to release.",
+  "bio_description": [
+    "Saya Roy Aziz Barera, lulusan D4 Teknik Informatika Politeknik Negeri Bandung. Berfokus pada backend engineering dan pengembangan mobile dengan rekam jejak membawa produk dari nol arsitektur hingga rilis production.",
+    "Berpengalaman memelihara 20+ service monolith dan microservices menggunakan TypeScript (NestJS) dan Go di PT Pendidikan Ganesha Operation, mengoptimasi query PostgreSQL pada dataset ratusan ribu baris, implementasi Redis caching, serta Saga Orchestrator.",
+    "Sebagai Project Manager sekaligus Full-Stack Developer di Tim Lawan PMO, saya memimpin tim 5 orang mengembangkan aplikasi Android berbasis Kotlin hingga mencapai lebih dari 1.400 pengguna terdaftar di Play Store dengan pipeline CI/CD GitHub Actions di VPS Linux."
+  ],
   "skills": [
-    { "id": "1", "name": "Kotlin", "tag": "kt" },
-    { "id": "2", "name": "Flutter", "tag": "fl" },
-    { "id": "3", "name": "TypeScript", "tag": "ts" },
-    { "id": "4", "name": "NestJS", "tag": "nj" },
-    { "id": "5", "name": "Go", "tag": "go" },
-    { "id": "6", "name": "Next.js", "tag": "nx" },
-    { "id": "7", "name": "Python", "tag": "py" },
-    { "id": "8", "name": "Docker", "tag": "dk" },
-    { "id": "9", "name": "GitHub", "tag": "gh" },
-    { "id": "10", "name": "PostgreSQL", "tag": "pg" }
+    {
+      "id": "skill-1",
+      "name": "TypeScript & NestJS",
+      "tag": "nj",
+      "category": "backend",
+      "category_label": "Backend & Architecture",
+      "description": "Framework enterprise untuk arsitektur monolith dan microservices terdistribusi.",
+      "projects": [
+        "Core & HRIS Services",
+        "Lawan PMO Backend",
+        "Broy POS"
+      ],
+      "highlights": [
+        "Memelihara dan mengembangkan **20+ backend services** pada arsitektur monolith & microservices.",
+        "Implementasi pattern **Saga Orchestrator** untuk koordinasi transaksi terdistribusi antar service.",
+        "Pembangunan endpoint **RESTful API modular** dengan validasi ketat, sanitasi, dan edge cases.",
+        "Integrasi sistem autentikasi **Google OAuth** dan push notification **FCM**."
+      ]
+    },
+    {
+      "id": "skill-2",
+      "name": "Go (Golang)",
+      "tag": "go",
+      "category": "backend",
+      "category_label": "Backend & Architecture",
+      "description": "Bahasa andalan untuk microservices performa tinggi, concurrency, dan efisiensi memori.",
+      "projects": [
+        "Crypto Broy",
+        "Klinik ERP",
+        "High-Throughput Services"
+      ],
+      "highlights": [
+        "Membangun service backend performa tinggi dengan **Gin framework** dan komunikasi **gRPC**.",
+        "Integrasi **Saga Orchestration pattern** untuk proses bisnis terdistribusi berlatensi rendah.",
+        "Pengembangan sistem ERP dengan disiplin **Clean Architecture** (folder cmd, internal, pkg).",
+        "Membangun dashboard crypto real-time dengan **Go concurrency** terhubung ke API Indodax."
+      ]
+    },
+    {
+      "id": "skill-3",
+      "name": "PostgreSQL",
+      "tag": "pg",
+      "category": "database",
+      "category_label": "Database & Storage",
+      "description": "Relational database utama untuk pengelolaan data berskala besar dan transaksi reliabel.",
+      "projects": [
+        "Query Tuning",
+        "Relational Schemas",
+        "ACID Transactions"
+      ],
+      "highlights": [
+        "Optimasi query pada dataset berskala **ratusan ribu baris data** via indexing terarah.",
+        "Audit dan eliminasi masalah **N+1 query** untuk memangkas execution time.",
+        "Perancangan skema relasional kompleks, constraint integritas, dan transaksi konsisten.",
+        "Analisis query execution plan dan profiling database terstruktur dengan **DBeaver**."
+      ]
+    },
+    {
+      "id": "skill-4",
+      "name": "Redis Caching",
+      "tag": "rd",
+      "category": "database",
+      "category_label": "Database & Storage",
+      "description": "In-memory data store untuk akselerasi respons endpoint dan peredam beban DB.",
+      "projects": [
+        "Production Cache Layer",
+        "Latency Reduction"
+      ],
+      "highlights": [
+        "Implementasi **caching layer** pada endpoint bertrafik read tinggi untuk memangkas response latency.",
+        "Reduksi beban komputasi langsung pada PostgreSQL untuk query agregasi berulang.",
+        "Penerapan strategi **cache invalidation** dan key expiration terstruktur."
+      ]
+    },
+    {
+      "id": "skill-5",
+      "name": "Kotlin (Native Android)",
+      "tag": "kt",
+      "category": "mobile",
+      "category_label": "Mobile Development",
+      "description": "Pengembangan native Android modern yang terintegrasi langsung dengan level OS.",
+      "projects": [
+        "Lawan PMO",
+        "Parental Control Module"
+      ],
+      "highlights": [
+        "Rilis aplikasi produksi dari nol hingga **1.400+ pengguna terdaftar** di Google Play Store.",
+        "Modul parental control dengan deteksi penggunaan aplikasi & URL **real-time di level Android**.",
+        "Penerapan modern UI menggunakan **Jetpack Compose** dan integrasi **Firebase FCM**.",
+        "Konfigurasi **multi-environment build variant** (dev, staging, prod) via Gradle."
+      ]
+    },
+    {
+      "id": "skill-6",
+      "name": "Flutter & Dart",
+      "tag": "fl",
+      "category": "mobile",
+      "category_label": "Mobile Development",
+      "description": "Framework cross-platform untuk aplikasi mobile modular dengan performa tinggi.",
+      "projects": [
+        "Enterprise Internal App",
+        "Modular Monorepo"
+      ],
+      "highlights": [
+        "Pengembangan aplikasi internal enterprise dengan pemisahan disiplin **Clean Architecture**.",
+        "Pengelolaan struktur **modular monorepo** untuk isolasi fitur dan skalabilitas tim.",
+        "Implementasi state management teruji dan performa render UI yang responsif."
+      ]
+    },
+    {
+      "id": "skill-7",
+      "name": "Docker & CI/CD (GitHub Actions)",
+      "tag": "ci",
+      "category": "devops",
+      "category_label": "DevOps & Infrastructure",
+      "description": "Otomasi pipeline delivery dan kontainerisasi multi-environment yang konsisten.",
+      "projects": [
+        "GitHub Actions CI/CD",
+        "Linux VPS",
+        "Docker Compose"
+      ],
+      "highlights": [
+        "Membangun **pipeline CI/CD dari nol** via GitHub Actions untuk test, build, dan auto-deploy.",
+        "Automated deployment ke **VPS Linux** mencakup 3 environment (dev, staging, prod).",
+        "Multi-service **containerization dengan Docker & Docker Compose** untuk kemudahan replikasi env.",
+        "Workflow Git profesional: branch protection, mandatory PR review, dan semantic release."
+      ]
+    },
+    {
+      "id": "skill-8",
+      "name": "Python Automation",
+      "tag": "py",
+      "category": "workflow",
+      "category_label": "Automation & Scripting",
+      "description": "Scripting otomasi, ekstraksi data web, dan pembuatan tool CLI modular.",
+      "projects": [
+        "Bot IG Automation",
+        "Shorts CLI Pipeline"
+      ],
+      "highlights": [
+        "Pengembangan bot otomasi scraping dengan arsitektur **Plugin Pattern** yang extensible.",
+        "Tool otomasi CLI untuk pipeline rendering video menggunakan **FFmpeg**.",
+        "Isolasi state session multi-akun untuk reliabilitas eksekusi task otomasi."
+      ]
+    },
+    {
+      "id": "skill-9",
+      "name": "Agentic AI Workflow",
+      "tag": "ai",
+      "category": "workflow",
+      "category_label": "Modern Engineering Workflow",
+      "description": "Pemanfaatan Agentic AI untuk akselerasi siklus rekayasa perangkat lunak modern.",
+      "projects": [
+        "WhatsApp AI Multi-Provider",
+        "API Contracts & Testing"
+      ],
+      "highlights": [
+        "Integrasi **AI multi-provider** (OpenAI, Anthropic, Gemini) via WhatsApp dengan queue worker.",
+        "Akselerasi **implementation planning** dan perancangan skenario edge case sistem.",
+        "Perumusan skenario pengujian endpoint komprehensif pada **Postman & cURL**.",
+        "Penyusunan dokumentasi **API contract terstandarisasi** dan automated code evaluation."
+      ]
+    }
   ],
   "experiences": [
     {
-      "id": "1",
+      "id": "exp-1",
       "num": "01",
-      "role": "Mobile Developer",
-      "company": "PT Neural Technologies Indonesia",
-      "period": "Jun – Okt 2025"
+      "role": "Backend Engineer",
+      "company": "PT Pendidikan Ganesha Operation",
+      "location": "Kota Bandung, Jawa Barat",
+      "period": "Juli 2026 – Sekarang",
+      "highlights": [
+        "Mengembangkan dan memelihara 20+ service backend (arsitektur monolith & microservice dengan Saga Orchestrator) menggunakan TypeScript (NestJS) dan Go.",
+        "Mengoptimasi query PostgreSQL pada dataset berskala ratusan ribu baris melalui indexing dan penghindaran N+1 query serta mengimplementasikan caching dengan Redis.",
+        "Melakukan validasi dan sanitasi input serta pengujian endpoint komprehensif (Postman/cURL) mencakup skenario positive, negative, dan edge case.",
+        "Berkolaborasi dengan tim Business Development menyelaraskan requirement teknis dengan proses bisnis dan mengelola workflow git via GitHub Project.",
+        "Memanfaatkan Agentic AI untuk mempercepat implementation planning, penulisan kode, dan dokumentasi API contract."
+      ],
+      "tech": ["TypeScript", "NestJS", "Go", "PostgreSQL", "Redis", "Saga Orchestrator", "GitHub Project"]
     },
     {
-      "id": "2",
+      "id": "exp-2",
       "num": "02",
-      "role": "Project Manager & Full-Stack Developer",
+      "role": "Project Manager & Full Stack Developer",
       "company": "Tim Lawan PMO",
-      "period": "Jul 2025 – sekarang"
+      "location": "Kota Bandung, Jawa Barat",
+      "period": "Juni 2025 – Sekarang",
+      "highlights": [
+        "Memimpin tim 5 orang dalam membangun aplikasi Android berbasis PI Model dan MBSR yang mencapai lebih dari 1.400 pengguna terdaftar di Play Store.",
+        "Menyusun user story, memprioritaskan backlog task, memimpin sprint meeting, dan melakukan code review pada seluruh pull request.",
+        "Membangun CI/CD pipeline dari nol menggunakan GitHub Actions dan VPS untuk environment development, staging, dan production.",
+        "Mengimplementasikan fitur Google OAuth, FCM push notifications, monitoring aplikasi, dan modul parental control di Android."
+      ],
+      "tech": ["Kotlin", "NestJS", "TypeScript", "PostgreSQL", "GitHub Actions", "VPS Linux", "Firebase"]
     },
     {
-      "id": "3",
+      "id": "exp-3",
       "num": "03",
-      "role": "Ketua Unit Kewirausahaan",
-      "company": "HIMAKOM Polban",
-      "period": "Feb 2024 – Jan 2025"
+      "role": "Mobile Developer",
+      "company": "PT. Neural Technologies Indonesia",
+      "location": "Jakarta Selatan, DKI Jakarta",
+      "period": "Juni 2025 – Oktober 2025",
+      "highlights": [
+        "Mengembangkan dan memelihara aplikasi internal perusahaan menggunakan Flutter dengan menerapkan Clean Architecture.",
+        "Menerapkan struktur modular monorepo untuk memastikan skalabilitas, maintainability, dan isolasi modul fitur.",
+        "Mengimplementasikan modul fitur enterprise dengan praktik rekayasa perangkat lunak yang teruji."
+      ],
+      "tech": ["Flutter", "Dart", "Clean Architecture", "Modular Monorepo"]
     },
     {
-      "id": "4",
+      "id": "exp-4",
       "num": "04",
-      "role": "Staf Muda",
-      "company": "HIMAKOM Polban",
-      "period": "Feb 2023 – Jan 2024"
+      "role": "Ketua Unit Kewirausahaan",
+      "company": "HIMAKOM Politeknik Negeri Bandung",
+      "location": "Bandung",
+      "period": "Februari 2024 – Januari 2025",
+      "highlights": [
+        "Memimpin divisi kewirausahaan himpunan dalam merancang inisiatif pendanaan dan kemandirian organisasi mahasiswa.",
+        "Mengelola koordinasi anggota lintas divisi dan manajemen proyek kegiatan organisasi."
+      ],
+      "tech": ["Leadership", "Project Management", "Team Coordination"]
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Setara Perak – Kategori Poster, PKM-KI 1 PIMNAS 2025",
+      "badge": "Medali Perak Nasional",
+      "category": "Pekan Ilmiah Mahasiswa Nasional (PIMNAS)",
+      "issuer": "Kemendikbudristek / BPTI",
+      "year": "2025",
+      "description": "Meraih penghargaan setara medali perak pada kategori poster dalam ajang Pekan Ilmiah Mahasiswa Nasional (PIMNAS) 2025 melalui kompetisi Program Kreativitas Mahasiswa Karya Inovatif tingkat nasional."
+    },
+    {
+      "id": "honor-2",
+      "title": "Setara Perunggu – Kategori Presentasi, PKM-KI 1 PIMNAS 2025",
+      "badge": "Medali Perunggu Nasional",
+      "category": "Pekan Ilmiah Mahasiswa Nasional (PIMNAS)",
+      "issuer": "Kemendikbudristek / BPTI",
+      "year": "2025",
+      "description": "Meraih penghargaan setara medali perunggu pada kategori presentasi dalam ajang Pekan Ilmiah Mahasiswa Nasional (PIMNAS) 2025 melalui kompetisi PKM-KI tingkat nasional."
+    },
+    {
+      "id": "honor-3",
+      "title": "Finalis Musabaqah Desain Aplikasi Komputer Al-Qur'an 2023",
+      "badge": "Finalis Nasional",
+      "category": "Kompetisi Desain Aplikasi Nasional",
+      "issuer": "Kementerian Pendidikan dan Kebudayaan",
+      "year": "2023",
+      "description": "Berhasil menjadi finalis dalam kompetisi Musabaqah Desain Aplikasi Komputer Al-Qur'an tingkat nasional yang diselenggarakan oleh Kementerian Pendidikan dan Kebudayaan."
+    }
+  ],
+  "certifications": [
+    {
+      "id": "cert-1",
+      "title": "Junior Back End Developer using Spring Boot",
+      "issuer": "ArutalaLab",
+      "period": "Juli 2026 – Juli 2029",
+      "description": "Sertifikasi kompetensi rekayasa backend enterprise menggunakan Java dan Spring Boot framework."
+    },
+    {
+      "id": "cert-2",
+      "title": "TOEIC (Test of English for International Communication)",
+      "issuer": "PT International Test Center",
+      "period": "Mei 2026 – Mei 2028",
+      "description": "Standar sertifikasi kemahiran komunikasi bahasa Inggris profesional berskala internasional."
     }
   ]
 }

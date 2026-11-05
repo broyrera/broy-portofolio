@@ -1,34 +1,89 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import projectsData from "@/data/projects.json";
 import ScrollReveal from "./ScrollReveal";
 import { getTechNames } from "@/lib/projectTech";
-import type { Project } from "@/types/portfolio";
+import type { Project, ProjectCategory } from "@/types/portfolio";
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+const rawProjects = (projectsData as unknown as Project[]).filter(
+  (p) => p.published
+);
+
+const sortedProjects = [...rawProjects].sort(
+  (a, b) => (a.display_order ?? 999) - (b.display_order ?? 999)
+);
+
+const categories: { id: ProjectCategory; label: string }[] = [
+  { id: "all", label: "Semua Proyek" },
+  { id: "team", label: "Team Products" },
+  { id: "work", label: "Work & Enterprise" },
+  { id: "client", label: "Client & Freelance" },
+  { id: "personal", label: "Personal & Eksperimen" },
+  { id: "academic", label: "Akademik & Kampus" },
+];
+
+function ProjectCard({
+  project,
+  index,
+}: {
+  project: Project;
+  index: number;
+}) {
   const techNames = getTechNames(project.tech);
 
   return (
-    <ScrollReveal delay={index * 150} direction={index % 2 === 0 ? "left" : "right"}>
+    <ScrollReveal
+      delay={index * 100}
+      direction={index % 2 === 0 ? "left" : "right"}
+    >
       <Link
         href={`/projects/${project.slug}`}
-        className="group card-alive block rounded-4xl overflow-hidden bg-dark-surface/80 border border-white/5"
+        className="group card-alive flex flex-col h-full rounded-3xl overflow-hidden bg-dark-surface/90 border border-white/8 hover:border-primary-light/40 transition-all duration-300 shadow-lg"
       >
-        {/* Image */}
-        <div className="relative aspect-[16/9] overflow-hidden">
-          <Image
-            src={project.image || "/images/project-placeholder.svg"}
-            alt={project.title}
-            fill
-            className="object-cover transition-transform duration-700 group-hover:scale-110"
-            sizes="(max-width: 768px) 100vw, 50vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/30 to-transparent opacity-70 group-hover:opacity-50 transition-opacity duration-500" />
+        {/* Card Thumbnail / Header */}
+        <div className="relative aspect-[16/10] overflow-hidden bg-dark">
+          {project.image ? (
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+          ) : (
+            <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-gradient-to-br from-dark via-dark-surface to-dark">
+              <span className="text-xs font-mono tracking-widest uppercase text-dark-muted mb-2">
+                Enterprise Codebase
+              </span>
+              <p className="font-heading text-lg font-bold italic text-text-on-dark">
+                {project.title}
+              </p>
+            </div>
+          )}
 
-          {/* View arrow */}
-          <div className="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0 border border-white/10">
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-dark-surface via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
+
+          {/* Top Badges */}
+          <div className="absolute top-4 left-4 right-4 flex items-center justify-between gap-2">
+            <span className="px-3 py-1 rounded-full text-[11px] font-semibold tracking-wider uppercase bg-black/60 backdrop-blur-md text-white/90 border border-white/10">
+              {project.category_label}
+            </span>
+
+            {project.highlight_metric && (
+              <span className="px-3 py-1 rounded-full text-[11px] font-medium bg-primary/80 backdrop-blur-md text-white border border-primary-light/30">
+                {project.highlight_metric}
+              </span>
+            )}
+          </div>
+
+          {/* View Arrow Floating Action */}
+          <div className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 border border-white/15">
             <svg
-              className="w-5 h-5 text-white group-hover:rotate-45 transition-transform duration-500"
+              className="w-4 h-4 text-white group-hover:rotate-45 transition-transform duration-300"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -41,23 +96,40 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           </div>
         </div>
 
-        {/* Content */}
-        <div className="p-6 sm:p-8">
-          <h3 className="font-heading text-xl sm:text-2xl font-bold italic text-text-on-dark mb-2 group-hover:text-primary-light transition-colors duration-300">
-            {project.title}
-          </h3>
-          <p className="text-sm text-dark-muted leading-relaxed mb-5 group-hover:text-dark-muted/80 transition-colors">
-            {project.description}
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {techNames.map((t: string) => (
+        {/* Card Content */}
+        <div className="p-6 sm:p-7 flex flex-col flex-1 justify-between">
+          <div>
+            <div className="flex items-center justify-between text-xs text-dark-muted mb-2">
+              <span className="font-medium text-primary-light/90">
+                {project.role}
+              </span>
+              <span className="font-mono">{project.year}</span>
+            </div>
+
+            <h3 className="font-heading text-xl sm:text-2xl font-bold italic text-text-on-dark mb-3 group-hover:text-primary-light transition-colors duration-300">
+              {project.title}
+            </h3>
+
+            <p className="text-xs sm:text-sm text-dark-muted leading-relaxed line-clamp-3 mb-6">
+              {project.description}
+            </p>
+          </div>
+
+          {/* Tech Badges */}
+          <div className="pt-4 border-t border-white/5 flex flex-wrap gap-1.5">
+            {techNames.slice(0, 5).map((t: string) => (
               <span
                 key={t}
-                className="px-3 py-1 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-dark-muted group-hover:border-primary-light/30 group-hover:text-primary-light/70 transition-all duration-300"
+                className="px-2.5 py-1 rounded-md text-[11px] font-medium bg-white/5 border border-white/8 text-dark-muted group-hover:border-primary-light/20 group-hover:text-white/80 transition-colors"
               >
                 {t}
               </span>
             ))}
+            {techNames.length > 5 && (
+              <span className="px-2 py-1 rounded-md text-[11px] font-medium bg-white/5 text-dark-muted/60">
+                +{techNames.length - 5}
+              </span>
+            )}
           </div>
         </div>
       </Link>
@@ -65,22 +137,26 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   );
 }
 
-const projects: Project[] = (projectsData as Project[])
-  .filter((p) => p.published)
-  .sort((a, b) => (a.display_order ?? 999) - (b.display_order ?? 999));
-
 export default function ProjectsSection() {
+  const [selectedCategory, setSelectedCategory] =
+    useState<ProjectCategory>("all");
+
+  const filteredProjects =
+    selectedCategory === "all"
+      ? sortedProjects
+      : sortedProjects.filter((p) => p.category === selectedCategory);
+
   return (
     <>
-      {/* Scrolling Text Divider */}
-      <div className="py-6 overflow-hidden bg-dark border-y border-white/5 group cursor-default">
+      {/* Marquee Divider */}
+      <div className="py-5 overflow-hidden bg-dark border-y border-white/5 group cursor-default">
         <div className="flex whitespace-nowrap animate-marquee">
           {Array.from({ length: 10 }).map((_, i) => (
             <span
               key={i}
-              className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tighter lowercase text-white/[0.04] mx-4 group-hover:text-primary-light/[0.1] transition-colors duration-700"
+              className="text-4xl sm:text-6xl font-black tracking-tighter lowercase text-white/[0.04] mx-5 group-hover:text-primary-light/[0.1] transition-colors duration-700"
             >
-              portfolio&nbsp;·&nbsp;
+              works · showcase · backend · architecture · systems ·&nbsp;
             </span>
           ))}
         </div>
@@ -89,43 +165,82 @@ export default function ProjectsSection() {
       {/* Dark Portfolio Section */}
       <section
         id="projects"
-        className="relative bg-dark py-24 sm:py-32 overflow-hidden"
+        className="relative bg-dark py-20 sm:py-28 overflow-hidden"
       >
-        {/* Floating blob */}
-        <div className="absolute top-20 right-[-200px] w-[500px] h-[500px] rounded-full bg-gradient-to-br from-primary/5 to-transparent blur-3xl animate-float-delayed pointer-events-none" />
+        {/* Subtle Ambient Blob */}
+        <div className="absolute top-20 right-[-180px] w-[460px] h-[460px] rounded-full bg-gradient-to-br from-primary/10 to-transparent blur-3xl animate-float-delayed pointer-events-none" />
 
-        <div className="mx-auto max-w-7xl px-6 sm:px-10 relative z-10">
-          {/* Section Header */}
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-16">
+        <div className="mx-auto max-w-7xl px-6 sm:px-10 relative z-10 space-y-12">
+          {/* Header */}
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <ScrollReveal>
-              <p className="text-xs font-semibold tracking-[0.3em] uppercase text-dark-muted mb-4">
-                Portfolio
+              <p className="text-xs font-semibold tracking-[0.25em] uppercase text-dark-muted mb-3">
+                Selected Works
               </p>
-              <h2 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight lowercase text-text-on-dark leading-[0.95]">
-                selected
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight lowercase text-text-on-dark leading-[1.05]">
+                portfolio &amp;
                 <br />
-                <span className="text-primary-light">works</span>
+                <span className="text-primary-light">proven delivery</span>
               </h2>
             </ScrollReveal>
+
             <ScrollReveal delay={100}>
-              <p className="text-sm text-dark-muted max-w-sm leading-relaxed">
-                Beberapa project yang telah saya kerjakan, dari mobile app
-                hingga web platform dan automation tools.
+              <p className="text-xs sm:text-sm text-dark-muted max-w-md leading-relaxed">
+                Koleksi proyek nyata yang mencakup kontribusi enterprise backend,
+                produk tim dengan traksi pasar, aplikasi klien, riset
+                akademik, hingga eksplorasi tools otomasi personal.
               </p>
             </ScrollReveal>
           </div>
 
+          {/* Category Tabs */}
+          <ScrollReveal delay={150}>
+            <div className="flex flex-wrap gap-2 pt-2 border-b border-white/5 pb-4">
+              {categories.map((c) => {
+                const count =
+                  c.id === "all"
+                    ? sortedProjects.length
+                    : sortedProjects.filter((p) => p.category === c.id).length;
+
+                return (
+                  <button
+                    key={c.id}
+                    onClick={() => setSelectedCategory(c.id)}
+                    className={`px-4 py-2 rounded-full text-xs font-medium transition-all duration-200 cursor-pointer flex items-center gap-2 ${
+                      selectedCategory === c.id
+                        ? "bg-white text-dark shadow-md"
+                        : "bg-white/5 border border-white/8 text-dark-muted hover:text-white hover:bg-white/10"
+                    }`}
+                  >
+                    <span>{c.label}</span>
+                    <span
+                      className={`text-[10px] font-mono px-1.5 py-0.2 rounded ${
+                        selectedCategory === c.id
+                          ? "bg-dark/15 text-dark"
+                          : "bg-white/10 text-dark-muted"
+                      }`}
+                    >
+                      {count}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </ScrollReveal>
+
           {/* Empty State */}
-          {projects.length === 0 && (
-            <div className="text-center py-20">
-              <p className="text-dark-muted">Belum ada project yang dipublish.</p>
+          {filteredProjects.length === 0 && (
+            <div className="text-center py-20 rounded-3xl border border-dashed border-white/10">
+              <p className="text-sm text-dark-muted">
+                Belum ada proyek dalam kategori ini.
+              </p>
             </div>
           )}
 
           {/* Project Grid */}
-          {projects.length > 0 && (
-            <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
-              {projects.map((project, i) => (
+          {filteredProjects.length > 0 && (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+              {filteredProjects.map((project, i) => (
                 <ProjectCard key={project.id} project={project} index={i} />
               ))}
             </div>
