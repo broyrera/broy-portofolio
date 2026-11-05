@@ -6,15 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "seed:projects": "node scripts/seed-projects.mjs",
-    "seed:projects:dry": "node scripts/seed-projects.mjs --dry-run",
-    "seed:projects:text": "node scripts/seed-projects.mjs --skip-images"
+    "lint": "eslint"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.99.1",
-    "browser-image-compression": "^2.0.2",
-    "next": "16.1.6",
+    "next": "^16.4.5",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
@@ -25,7 +20,7 @@
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
-    "eslint-config-next": "16.1.6",
+    "eslint-config-next": "^15.5.29",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

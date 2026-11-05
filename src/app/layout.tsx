@@ -23,25 +23,25 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Roy Aziz Barera — Informatics Engineer",
+  title: "Roy Aziz Barera — Full-Stack Developer",
   description:
-    "Portfolio of Roy Aziz Barera — Informatics Engineer specializing in Backend & Mobile Development. TypeScript, Go, Flutter, Kotlin.",
+    "Portfolio of Roy Aziz Barera — Full-Stack Developer with strong backend foundation. Next.js, TypeScript, Go, Kotlin, Flutter, PostgreSQL.",
   keywords: [
     "Roy Aziz Barera",
-    "Informatics Engineer",
+    "Full-Stack Developer",
     "Backend Developer",
-    "Mobile Developer",
-    "Portfolio",
+    "Next.js",
     "TypeScript",
     "Go",
-    "Flutter",
     "Kotlin",
+    "Flutter",
+    "Portfolio",
   ],
   authors: [{ name: "Roy Aziz Barera" }],
   openGraph: {
-    title: "Roy Aziz Barera — Informatics Engineer",
+    title: "Roy Aziz Barera — Full-Stack Developer",
     description:
-      "Portfolio of Roy Aziz Barera — Informatics Engineer specializing in Backend & Mobile Development.",
+      "Portfolio of Roy Aziz Barera — Full-Stack Developer with strong backend foundation. Next.js, TypeScript, Go, Kotlin, Flutter.",
     type: "website",
     locale: "id_ID",
   },

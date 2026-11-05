@@ -1,76 +1,70 @@
-# Cara Menambah Gambar ke Project
+# Cara Menambah & Mengelola Project (Statis)
 
-## Cara Cepat (tanpa Supabase)
+Portofolio ini 100% statis. Semua data tersimpan di file JSON lokal dan gambar di folder `public/`. Tidak ada database atau server pihak ketiga yang perlu di-maintain.
 
-Taruh gambar langsung di folder `public/images/projects/{slug}/`, lalu update `src/data/projects.json`.
+---
 
-### 1. Struktur folder
+## 1. Menambahkan Gambar Project
 
-```
+Taruh gambar langsung di folder `public/images/projects/{slug}/`.
+
+### Struktur Folder
+```text
 public/
   images/
     projects/
       lawan-pmo/
-        cover.jpg         ← gambar utama (ditampilkan di hero)
-        screen-1.jpg
-        screen-2.jpg
-        screen-3.jpg      ← bisa sebanyak apapun
-      broy-pos/
-        cover.jpg
-        screen-1.jpg
-        ...
+        cover.png         ← gambar utama (card di homepage & hero di detail)
+        screen-1.png      ← screenshot gallery (bebas berapa saja)
+        screen-2.png
+      project-baru/
+        cover.png
+        screen-1.png
+        screen-2.png
 ```
 
-Format yang didukung: `.jpg`, `.jpeg`, `.png`, `.webp`, `.gif`, `.avif`
+* Format yang didukung: `.png`, `.jpg`, `.jpeg`, `.webp`, `.avif`
+* Disarankan kompres gambar terlebih dahulu (misal via tinypng atau squoosh) agar loading cepat.
 
-### 2. Update projects.json
+---
 
-Buka `src/data/projects.json`, cari project yang mau diupdate, isi field `image` dan `screenshots`:
+## 2. Menambahkan atau Edit Data Project
+
+Buka [src/data/projects.json](src/data/projects.json). Tambahkan objek baru ke dalam array:
 
 ```json
 {
-  "slug": "lawan-pmo",
-  "image": "/images/projects/lawan-pmo/cover.jpg",
+  "id": "local-7",
+  "slug": "project-baru",
+  "title": "Nama Project",
+  "description": "Deskripsi singkat yang tampil di kartu homepage.",
+  "long_description": "Deskripsi lengkap yang tampil di halaman detail /projects/project-baru.",
+  "image": "/images/projects/project-baru/cover.png",
   "screenshots": [
-    "/images/projects/lawan-pmo/screen-1.jpg",
-    "/images/projects/lawan-pmo/screen-2.jpg",
-    "/images/projects/lawan-pmo/screen-3.jpg"
-  ]
+    "/images/projects/project-baru/screen-1.png",
+    "/images/projects/project-baru/screen-2.png"
+  ],
+  "tech": [
+    "{\"name\":\"Go\",\"usage\":\"Backend API\"}",
+    "{\"name\":\"PostgreSQL\",\"usage\":\"Database utama\"}",
+    "{\"name\":\"Docker\",\"usage\":\"Containerization\"}"
+  ],
+  "role": "Backend Developer",
+  "year": "2025",
+  "link": null,
+  "demo": "https://example.com",
+  "published": true,
+  "display_order": 7
 }
 ```
 
-`image` = hero/cover yang muncul di card dan bagian atas halaman detail.
-`screenshots` = semua gambar di gallery (bisa banyak, tidak ada batas).
-
-Di halaman detail, `image` dan `screenshots` digabung otomatis ke gallery dengan lightbox.
+* `published: true` → tampil di web. Kalau `false` akan disembunyikan.
+* `display_order` → urutan tampil di homepage (angka lebih kecil = lebih atas).
 
 ---
 
-## Cara via Supabase (setelah Supabase aktif)
+## 3. Mengubah Profil, Skills, dan Pengalaman
 
-1. Pastikan `.env.local` sudah punya kredensial Supabase yang valid
-2. Taruh gambar di `portfolio-images/{slug}/` (file pertama atau yang bernama `cover.*` jadi cover)
-3. Jalankan script upload:
-
-```bash
-# Upload gambar + upsert data ke DB:
-npm run seed:projects
-
-# Hanya upload gambar tanpa ubah data teks:
-node scripts/seed-projects.mjs
-
-# Preview tanpa nulis apapun:
-npm run seed:projects:dry
-```
-
-Script otomatis upload semua gambar di `portfolio-images/{slug}/` ke Supabase Storage
-dan update field `image` + `screenshots` di tabel projects.
-
----
-
-## Tips
-
-- Resolusi disarankan minimal 1280x720 untuk cover, 1200x800 untuk screenshots
-- Kompres dulu sebelum taruh di `public/` karena tidak ada kompresi otomatis di jalur ini
-- Kalau Supabase sudah aktif, gambar di Supabase Storage lebih baik karena di-cache CDN
-- `.gitkeep` di dalam folder `portfolio-images/` bisa dihapus setelah ada file gambar di dalamnya
+Buka [src/data/about.json](src/data/about.json):
+* Bagian `"skills"`: daftar keahlian teknologi.
+* Bagian `"experiences"`: riwayat karier / organisasi.
