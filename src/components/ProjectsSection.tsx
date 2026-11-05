@@ -3,23 +3,7 @@ import Link from "next/link";
 import projectsData from "@/data/projects.json";
 import ScrollReveal from "./ScrollReveal";
 import { getTechNames } from "@/lib/projectTech";
-
-interface Project {
-  id: string;
-  slug: string;
-  title: string;
-  description: string;
-  long_description: string;
-  image: string | null;
-  screenshots: string[];
-  tech: string[];
-  role: string;
-  year: string;
-  link?: string | null;
-  demo?: string | null;
-  published: boolean;
-  display_order?: number | null;
-}
+import type { Project } from "@/types/portfolio";
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const techNames = getTechNames(project.tech);

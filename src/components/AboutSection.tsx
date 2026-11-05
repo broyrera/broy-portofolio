@@ -1,19 +1,6 @@
 import aboutData from "@/data/about.json";
 import ScrollReveal from "./ScrollReveal";
-
-interface Skill {
-  id: string;
-  name: string;
-  tag: string;
-}
-
-interface Experience {
-  id: string;
-  num: string;
-  role: string;
-  company: string;
-  period: string;
-}
+import type { Skill, Experience } from "@/types/portfolio";
 
 const skills = aboutData.skills as Skill[];
 const experiences = aboutData.experiences as Experience[];

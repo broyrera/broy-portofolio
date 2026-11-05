@@ -4,22 +4,7 @@ import { notFound } from "next/navigation";
 import projectsData from "@/data/projects.json";
 import { parseTechEntries } from "@/lib/projectTech";
 import ImageGallery from "@/components/ImageGallery";
-
-interface Project {
-  id: string;
-  slug: string;
-  title: string;
-  description: string;
-  long_description: string;
-  image: string | null;
-  screenshots: string[];
-  tech: string[];
-  role: string;
-  year: string;
-  link?: string | null;
-  demo?: string | null;
-  published: boolean;
-}
+import type { Project } from "@/types/portfolio";
 
 export function generateStaticParams() {
   return (projectsData as Project[])
