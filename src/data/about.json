@@ -1,8 +1,8 @@
 {
-  "bio_headline": "Engineering reliable systems, from architecture to release.",
+  "bio_headline": "Building end-to-end applications, with strong backend foundations.",
   "bio_description": [
-    "Saya Roy Aziz Barera, lulusan D4 Teknik Informatika Politeknik Negeri Bandung. Berfokus pada backend engineering dan pengembangan mobile dengan rekam jejak membawa produk dari nol arsitektur hingga rilis production.",
-    "Berpengalaman memelihara 20+ service monolith dan microservices menggunakan TypeScript (NestJS) dan Go di PT Pendidikan Ganesha Operation, mengoptimasi query PostgreSQL pada dataset ratusan ribu baris, implementasi Redis caching, serta Saga Orchestrator.",
+    "Saya Roy Aziz Barera, lulusan D4 Teknik Informatika Politeknik Negeri Bandung. Berfokus sebagai Full-Stack Developer dengan spesialisasi kuat di sisi backend, didukung pengalaman membangun antarmuka web modern dengan Next.js serta aplikasi mobile native (Android Kotlin) maupun cross-platform (Flutter).",
+    "Terbiasa bekerja dengan database berskala besar, optimasi query PostgreSQL pada dataset ratusan ribu baris, implementasi Redis caching, serta pemeliharaan service backend menggunakan TypeScript (NestJS) dan Go di lingkungan produksi.",
     "Sebagai Project Manager sekaligus Full-Stack Developer di Tim Lawan PMO, saya memimpin tim 5 orang mengembangkan aplikasi Android berbasis Kotlin hingga mencapai lebih dari 1.400 pengguna terdaftar di Play Store dengan pipeline CI/CD GitHub Actions di VPS Linux."
   ],
   "skills": [

@@ -88,7 +88,7 @@ export default function AboutSection() {
                   Profil & Rekayasa
                 </p>
                 <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold italic text-text leading-[1.1] mt-2">
-                  Engineering reliable systems, from architecture to release.
+                  {data.bio_headline}
                 </h2>
               </ScrollReveal>
               <ScrollReveal delay={150}>

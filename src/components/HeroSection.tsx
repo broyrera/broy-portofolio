@@ -48,7 +48,7 @@ export default function HeroSection() {
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-text/8 shadow-xs hover:border-primary/20 transition-all duration-300">
             <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
             <span className="text-xs font-medium tracking-wide text-text-muted">
-              Available for Backend & Mobile Roles
+              Available for Full-Stack &amp; Backend Roles
             </span>
           </div>
         </div>
@@ -74,55 +74,20 @@ export default function HeroSection() {
         </div>
 
         {/* Name Heading */}
-        <div className="opacity-0 animate-entrance stagger-3 space-y-2 mb-4">
+        <div className="opacity-0 animate-entrance stagger-3 space-y-1.5 mb-7">
           <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-text leading-[1.05]">
             Roy Aziz Barera<span className="text-primary">.</span>
           </h1>
           <p className="font-heading text-lg sm:text-2xl font-bold italic text-primary-dark">
-            Backend Engineer & Mobile Developer
+            Full-Stack Developer
+          </p>
+          <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-text-muted">
+            Strong Backend Foundation
           </p>
         </div>
 
-        {/* Value Pitch */}
-        <p className="opacity-0 animate-entrance stagger-4 text-sm sm:text-base text-text-muted max-w-2xl leading-relaxed mb-8">
-          Lulusan D4 Teknik Informatika Politeknik Negeri Bandung. Berfokus pada
-          perancangan arsitektur backend berskala besar (Go, NestJS, PostgreSQL),
-          optimasi query & caching, native mobile apps, hingga otomasi pipeline
-          CI/CD dari nol ke production.
-        </p>
-
-        {/* Metrics Counter Bar */}
-        <div className="opacity-0 animate-entrance stagger-4 w-full max-w-3xl grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
-          <div className="p-4 rounded-2xl bg-white/70 backdrop-blur-sm border border-text/8 shadow-xs flex flex-col items-center justify-center">
-            <span className="text-xl sm:text-2xl font-black text-text tracking-tight">
-              1.4K+
-            </span>
-            <span className="text-xs text-text-muted mt-0.5">
-              Play Store Users (Lawan PMO)
-            </span>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-white/70 backdrop-blur-sm border border-text/8 shadow-xs flex flex-col items-center justify-center">
-            <span className="text-xl sm:text-2xl font-black text-text tracking-tight">
-              20+ Services
-            </span>
-            <span className="text-xs text-text-muted mt-0.5">
-              Maintained (Ganesha Operation)
-            </span>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-white/70 backdrop-blur-sm border border-text/8 shadow-xs flex flex-col items-center justify-center">
-            <span className="text-xl sm:text-2xl font-black text-text tracking-tight">
-              2x Medals
-            </span>
-            <span className="text-xs text-text-muted mt-0.5">
-              PIMNAS 2025 (Perak & Perunggu)
-            </span>
-          </div>
-        </div>
-
         {/* Action CTAs */}
-        <div className="opacity-0 animate-entrance stagger-5 flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-8">
+        <div className="opacity-0 animate-entrance stagger-4 flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-7">
           <Link
             href="#projects"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-text text-bg text-sm font-semibold hover:bg-primary hover:shadow-md hover:shadow-primary/20 transition-all duration-300"
@@ -164,7 +129,7 @@ export default function HeroSection() {
         </div>
 
         {/* Social Links */}
-        <div className="opacity-0 animate-entrance stagger-6 flex items-center justify-center gap-2.5">
+        <div className="opacity-0 animate-entrance stagger-5 flex items-center justify-center gap-2.5">
           {[
             {
               name: "GitHub",
