@@ -46,7 +46,7 @@
     "highlight_metric": "20+ Service & 100K+ Rows",
     "description": "Pemeliharaan dan penambahan fitur pada 20+ service backend monolith dan microservices menggunakan TypeScript (NestJS) dan Go.",
     "long_description": "Pengembangan dan pemeliharaan backend skala enterprise di PT Pendidikan Ganesha Operation yang mencakup lebih dari 20 service terdistribusi (monolith dan microservices dengan Saga Orchestrator).\n\nFokus pekerjaan meliputi penambahan modul fitur HRIS, optimasi query PostgreSQL pada tabel berskala ratusan ribu baris data melalui indexing dan pencegahan N+1 query, serta implementasi caching layer dengan Redis untuk memangkas latency read.\n\nSetiap endpoint diuji menggunakan skenario positive, negative, dan edge case, diselaraskan dengan kebutuhan Business Development, serta dikelola melalui git workflow dan ticketing GitHub Project.",
-    "image": "/images/projects/lawan-pmo/cover.png",
+    "image": null,
     "screenshots": [],
     "tech": [
       "{\"name\":\"TypeScript\",\"usage\":\"Bahasa utama service backend\"}",
@@ -107,7 +107,7 @@
     "highlight_metric": "Clean Architecture & Monorepo",
     "description": "Pengembangan aplikasi internal perusahaan berbasis Flutter dengan disiplin Clean Architecture dan modular monorepo.",
     "long_description": "Pengembangan dan pemeliharaan aplikasi mobile internal di PT Neural Technologies Indonesia menggunakan Flutter.\n\nArsitektur dirancang dengan Clean Architecture untuk memisahkan presentation layer, domain use cases, dan data layer. Seluruh paket dikelola dalam struktur monorepo modular untuk memastikan maintainability jangka panjang, kemudahan testing, dan isolasi fungsional antar modul fitur.",
-    "image": "/images/projects/broy-pos/cover.png",
+    "image": null,
     "screenshots": [],
     "tech": [
       "{\"name\":\"Flutter\",\"usage\":\"Cross-platform mobile framework\"}",
@@ -190,7 +190,7 @@
     "highlight_metric": "Go Gin & Clean Architecture",
     "description": "Sistem ERP backend untuk manajemen operasional klinik berbasis Go, Gin, dan PostgreSQL dengan Clean Architecture.",
     "long_description": "Sistem backend Enterprise Resource Planning (ERP) untuk operasional klinik yang mengelola pencatatan rekam medis, antrian jadwal pasien, inventaris obat, dan billing transaksi.\n\nDisusun dengan standar Clean Architecture (folder cmd, internal, dan pkg) untuk memastikan pemisahan dependency yang ketat. Menggunakan HTTP engine Gin dan GORM untuk komunikasi database PostgreSQL.",
-    "image": "/images/projects/simeta/cover.png",
+    "image": null,
     "screenshots": [],
     "tech": [
       "{\"name\":\"Go\",\"usage\":\"Bahasa utama backend\"}",

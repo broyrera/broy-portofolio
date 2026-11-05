@@ -54,11 +54,29 @@ function ProjectCard({
               sizes="(max-width: 768px) 100vw, 50vw"
             />
           ) : (
-            <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-gradient-to-br from-dark via-dark-surface to-dark">
-              <span className="text-xs font-mono tracking-widest uppercase text-dark-muted mb-2">
-                Enterprise Codebase
+            <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-gradient-to-br from-[#19151c] via-[#241923] to-[#121014] border-b border-white/5">
+              <div className="absolute w-36 h-36 rounded-full bg-primary/10 blur-2xl pointer-events-none" />
+              <div className="relative z-10 w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-3 text-primary-light group-hover:scale-110 group-hover:border-primary-light/40 transition-all duration-300">
+                <svg
+                  className="w-6 h-6"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <rect x="2" y="3" width="20" height="14" rx="2" />
+                  <line x1="8" y1="21" x2="16" y2="21" />
+                  <line x1="12" y1="17" x2="12" y2="21" />
+                  <path d="m7 8 3 3-3 3" />
+                  <path d="M13 14h4" />
+                </svg>
+              </div>
+              <span className="relative z-10 text-[11px] font-mono tracking-widest uppercase text-dark-muted mb-1">
+                Enterprise &amp; Systems
               </span>
-              <p className="font-heading text-lg font-bold italic text-text-on-dark">
+              <p className="relative z-10 font-heading text-lg font-bold italic text-white/90 group-hover:text-primary-light transition-colors">
                 {project.title}
               </p>
             </div>

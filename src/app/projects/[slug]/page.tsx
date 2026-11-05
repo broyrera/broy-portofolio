@@ -54,20 +54,28 @@ export default async function ProjectDetailPage({
         </div>
       </nav>
 
-      {/* Hero Image */}
+      {/* Hero Image / Banner */}
       <section className="pt-24 pb-0">
         <div className="mx-auto max-w-7xl px-6 sm:px-10">
           <div className="relative rounded-4xl overflow-hidden bg-dark aspect-[16/8] sm:aspect-[16/7]">
-            <Image
-              src={project.image || "/images/project-placeholder.svg"}
-              alt={project.title}
-              fill
-              className="object-cover"
-              sizes="100vw"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent" />
-            <div className="absolute bottom-6 sm:bottom-10 left-6 sm:left-10 right-6 sm:right-10">
+            {project.image ? (
+              <>
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  className="object-cover"
+                  sizes="100vw"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent" />
+              </>
+            ) : (
+              <div className="absolute inset-0 bg-gradient-to-br from-[#19151c] via-[#241923] to-[#121014] flex items-center justify-center p-8">
+                <div className="absolute w-96 h-96 rounded-full bg-primary/10 blur-3xl pointer-events-none" />
+              </div>
+            )}
+            <div className="absolute bottom-6 sm:bottom-10 left-6 sm:left-10 right-6 sm:right-10 z-10">
               <div className="flex flex-wrap items-center gap-2 mb-4">
                 {project.category_label && (
                   <span className="px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-primary text-white border border-primary-light/40">
