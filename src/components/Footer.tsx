@@ -10,9 +10,9 @@ export default function Footer() {
           </span>
           <div className="flex flex-wrap items-center gap-6">
             {[
-              { href: "#hero", label: "Home" },
-              { href: "#about", label: "About & Skills" },
-              { href: "#projects", label: "Works" },
+              { href: "#about", label: "About" },
+              { href: "#experience", label: "Experience" },
+              { href: "#projects", label: "Projects" },
               { href: "/cv-roy-aziz-barera.pdf", label: "Preview CV" },
               { href: "mailto:royazizbarera@gmail.com", label: "Contact" },
             ].map((link) => (

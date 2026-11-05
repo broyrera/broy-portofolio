@@ -183,7 +183,7 @@ export default function ProjectsSection() {
       {/* Dark Portfolio Section */}
       <section
         id="projects"
-        className="relative bg-dark py-20 sm:py-28 overflow-hidden"
+        className="relative bg-dark py-20 sm:py-28 overflow-hidden scroll-mt-16"
       >
         {/* Subtle Ambient Blob */}
         <div className="absolute top-20 right-[-180px] w-[460px] h-[460px] rounded-full bg-gradient-to-br from-primary/10 to-transparent blur-3xl animate-float-delayed pointer-events-none" />

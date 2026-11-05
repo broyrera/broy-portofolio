@@ -75,7 +75,7 @@ export default function AboutSection() {
         </div>
       </div>
 
-      <section id="about" className="relative py-20 sm:py-28 overflow-hidden">
+      <section id="about" className="relative py-20 sm:py-28 overflow-hidden scroll-mt-16">
         {/* Ambient background glow */}
         <div className="absolute -top-32 -right-32 w-80 h-80 rounded-full bg-gradient-to-br from-primary/5 to-accent/5 blur-3xl animate-float pointer-events-none" />
 
@@ -288,7 +288,7 @@ export default function AboutSection() {
           </div>
 
           {/* 3. Experiences Timeline */}
-          <div className="space-y-8">
+          <div id="experience" className="space-y-8 scroll-mt-24">
             <ScrollReveal>
               <p className="text-xs font-semibold tracking-[0.25em] uppercase text-text-muted">
                 Career Track
