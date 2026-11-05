@@ -6,6 +6,11 @@ export type ProjectCategory =
   | "personal"
   | "academic";
 
+export interface ProjectHighlight {
+  title: string;
+  description: string;
+}
+
 export interface Project {
   id?: string;
   slug: string;
@@ -24,6 +29,7 @@ export interface Project {
   published: boolean;
   display_order?: number | null;
   highlight_metric?: string | null;
+  highlights?: ProjectHighlight[];
 }
 
 export type SkillCategory =

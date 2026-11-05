@@ -21,14 +21,32 @@
       "/images/projects/lawan-pmo/screen-9.png"
     ],
     "tech": [
-      "{\"name\":\"Kotlin\",\"usage\":\"Android native, bahasa utama\"}",
-      "{\"name\":\"NestJS\",\"usage\":\"Backend API framework\"}",
-      "{\"name\":\"TypeScript\",\"usage\":\"Codebase backend\"}",
-      "{\"name\":\"GitHub Actions\",\"usage\":\"CI/CD pipeline otomatis\"}",
-      "{\"name\":\"FCM\",\"usage\":\"Push notification service\"}",
-      "{\"name\":\"Google OAuth\",\"usage\":\"Autentikasi aman\"}",
-      "{\"name\":\"PostgreSQL\",\"usage\":\"Database relasional\"}",
-      "{\"name\":\"VPS Linux\",\"usage\":\"Server management & hosting\"}"
+      "{\"name\":\"Kotlin\",\"usage\":\"Android native, arsitektur utama\"}",
+      "{\"name\":\"NestJS\",\"usage\":\"Backend API modular & validasi\"}",
+      "{\"name\":\"TypeScript\",\"usage\":\"Type-safe backend codebase\"}",
+      "{\"name\":\"GitHub Actions\",\"usage\":\"CI/CD pipeline 3 environment\"}",
+      "{\"name\":\"FCM\",\"usage\":\"Push notification harian & streak\"}",
+      "{\"name\":\"Google OAuth\",\"usage\":\"Autentikasi akun aman\"}",
+      "{\"name\":\"PostgreSQL\",\"usage\":\"Relational database & ACID\"}",
+      "{\"name\":\"VPS Linux\",\"usage\":\"Server management & deployment\"}"
+    ],
+    "highlights": [
+      {
+        "title": "System-Level Usage Inspection",
+        "description": "Pengembangan modul parental control dengan inspeksi background app usage dan deteksi URL secara real-time pada sistem Android."
+      },
+      {
+        "title": "Autonomous Multi-Environment CI/CD",
+        "description": "Pipeline GitHub Actions dari nol untuk linting, testing, dan deployment otomatis ke VPS Linux pada 3 environment terpisah (dev, staging, prod)."
+      },
+      {
+        "title": "Push Notification & Retention Engine",
+        "description": "Integrasi Firebase Cloud Messaging (FCM) untuk pengingat kebiasaan harian, daily reflection, dan scoring produktivitas."
+      },
+      {
+        "title": "Google Play Store Production Rollout",
+        "description": "Manajemen kepatuhan kebijakan Google Play Console, konfigurasi security, dan peluncuran resmi hingga melayani 1.400+ pengguna aktif."
+      }
     ],
     "role": "Project Manager & Full-Stack Developer",
     "year": "2025",
@@ -56,6 +74,24 @@
       "{\"name\":\"Redis\",\"usage\":\"Caching layer & latency reduction\"}",
       "{\"name\":\"Saga Orchestrator\",\"usage\":\"Koordinasi transaksi terdistribusi\"}",
       "{\"name\":\"GitHub Project\",\"usage\":\"Ticketing & Git workflow\"}"
+    ],
+    "highlights": [
+      {
+        "title": "Distributed Saga Orchestration",
+        "description": "Penerapan pattern Saga Orchestrator untuk mengoordinasikan transaksi bisnis terdistribusi antar microservices berlatensi rendah."
+      },
+      {
+        "title": "Query Tuning pada 100K+ Data",
+        "description": "Optimasi query PostgreSQL berskala ratusan ribu baris data melalui perancangan indexing terarah dan eliminasi N+1 query problem."
+      },
+      {
+        "title": "Production Redis Caching Layer",
+        "description": "Implementasi caching in-memory pada endpoint bertrafik read tinggi untuk mereduksi beban komputasi database utama."
+      },
+      {
+        "title": "Rigorous API Testing & Git Workflow",
+        "description": "Pengujian endpoint komprehensif (positive, negative, edge cases) di Postman/cURL dan manajemen task via GitHub Project."
+      }
     ],
     "role": "Backend Engineer",
     "year": "2026",
@@ -91,6 +127,20 @@
       "{\"name\":\"Docker\",\"usage\":\"Containerization\"}",
       "{\"name\":\"Playwright\",\"usage\":\"E2E automated testing\"}"
     ],
+    "highlights": [
+      {
+        "title": "Multi-Provider AI Intelligence",
+        "description": "Engine percakapan otomatis via WhatsApp dengan arsitektur multi-provider (OpenAI, Anthropic, Gemini) yang dapat diganti dinamis."
+      },
+      {
+        "title": "Decoupled Background Queue Workers",
+        "description": "Worker asinkron terpisah untuk antrian transmisi pesan, webhook receiver, agen handoff, dan notifikasi real-time."
+      },
+      {
+        "title": "Automated End-to-End Testing",
+        "description": "Simulasi percakapan AI dan alur transaksi POS menggunakan Playwright E2E testing dan containerization Docker."
+      }
+    ],
     "role": "Solo Developer",
     "year": "2025",
     "link": null,
@@ -114,6 +164,16 @@
       "{\"name\":\"Dart\",\"usage\":\"Bahasa utama aplikasi\"}",
       "{\"name\":\"Clean Architecture\",\"usage\":\"Pemisahan layer & domain logic\"}",
       "{\"name\":\"Modular Monorepo\",\"usage\":\"Struktur paket terisolasi\"}"
+    ],
+    "highlights": [
+      {
+        "title": "Clean Architecture Layering",
+        "description": "Pemisahan disiplin presentation, domain use cases, dan data layer untuk menjamin testability dan skalabilitas jangka panjang."
+      },
+      {
+        "title": "Modular Monorepo Structure",
+        "description": "Struktur monorepo untuk mengisolasi package fitur, meminimalkan coupling dependensi, dan memudahkan kolaborasi tim engineer."
+      }
     ],
     "role": "Mobile Developer",
     "year": "2025",
@@ -147,6 +207,20 @@
       "{\"name\":\"PostgreSQL\",\"usage\":\"Relational database\"}",
       "{\"name\":\"Docker\",\"usage\":\"Containerization\"}"
     ],
+    "highlights": [
+      {
+        "title": "Automated Credential Queue",
+        "description": "Penerbitan sertifikat dan kredensial otomatis dengan worker antrian email berjadwal untuk peserta event kampus."
+      },
+      {
+        "title": "Relational Schema & Migration",
+        "description": "Perancangan skema relasional keanggotaan dan automated migration script untuk backfill data anggota organisasi."
+      },
+      {
+        "title": "Multi-Environment Docker Deploy",
+        "description": "Deployment terisolasi menggunakan Docker Compose di environment development dan production."
+      }
+    ],
     "role": "Full-Stack Developer",
     "year": "2024 – 2025",
     "link": null,
@@ -174,6 +248,16 @@
       "{\"name\":\"React Query\",\"usage\":\"Server state management\"}",
       "{\"name\":\"lightweight-charts\",\"usage\":\"Visualisasi chart candlestick\"}"
     ],
+    "highlights": [
+      {
+        "title": "Low-Latency Go Backend Engine",
+        "description": "Backend API berbasis Go dengan efisiensi memori tinggi untuk konsumsi data pasar real-time dari Indodax."
+      },
+      {
+        "title": "Interactive Candlestick Visualizer",
+        "description": "Visualisasi chart candlestick finansial yang responsif menggunakan lightweight-charts dan TanStack React Query."
+      }
+    ],
     "role": "Solo Developer",
     "year": "2025",
     "link": null,
@@ -199,6 +283,16 @@
       "{\"name\":\"PostgreSQL\",\"usage\":\"Penyimpanan data medis & log\"}",
       "{\"name\":\"Docker\",\"usage\":\"Deployment container\"}"
     ],
+    "highlights": [
+      {
+        "title": "Clean Architecture Go Service",
+        "description": "Struktur kode terstandarisasi (cmd, internal, pkg) dengan HTTP engine Gin dan GORM untuk pemisahan domain logic."
+      },
+      {
+        "title": "Clinical Operational Modules",
+        "description": "Pencatatan data rekam medis pasien, antrian jadwal konsultasi, inventaris obat, dan billing transaksi."
+      }
+    ],
     "role": "Backend Developer",
     "year": "2025",
     "link": null,
@@ -221,6 +315,16 @@
       "{\"name\":\"Python\",\"usage\":\"Bahasa otomasi scripting\"}",
       "{\"name\":\"Plugin Pattern\",\"usage\":\"Desain arsitektur extensible\"}",
       "{\"name\":\"REST API\",\"usage\":\"Protokol interaksi data\"}"
+    ],
+    "highlights": [
+      {
+        "title": "Modular Plugin Architecture",
+        "description": "Behavior scraping dan interaksi dirancang sebagai plugin mandiri sehingga fitur baru dapat ditambah tanpa menyentuh core."
+      },
+      {
+        "title": "Multi-Account Session Isolation",
+        "description": "Manajemen state session per akun yang terisolasi untuk reliabilitas eksekusi task otomasi."
+      }
     ],
     "role": "Solo Developer",
     "year": "2025",
@@ -245,6 +349,12 @@
       "{\"name\":\"TypeScript\",\"usage\":\"Type definitions\"}",
       "{\"name\":\"Tailwind CSS\",\"usage\":\"Design system & layout\"}",
       "{\"name\":\"Framer Motion\",\"usage\":\"Animasi transisi halus\"}"
+    ],
+    "highlights": [
+      {
+        "title": "High-Fidelity Product Showcase",
+        "description": "Pengembangan landing page interaktif dengan transisi halus Framer Motion dan visualisasi katalog perhiasan."
+      }
     ],
     "role": "Frontend Developer",
     "year": "2025",
